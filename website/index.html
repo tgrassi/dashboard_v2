@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-4.0.0.min.js" charset="utf-8"></script>
+<script src="plotting/plotly_theme.js"></script>
+<script src="plotting/plot.js"></script>
+
+<link rel="stylesheet" href="css/style.css">
+<title>Climate Dashboard</title>
+
+<script>
+    function fetchHtml(page, id) {
+    fetch(page)
+        .then(r => r.text())
+        .then(html => document.getElementById(id).innerHTML = html);
+    }
+</script>
+
+</head>
+
+<body>
+
+<div class="dmu-19">
+
+    <div id="sidebar-container"></div>
+    <script>fetchHtml('sidebar.html', 'sidebar-container')</script>
+
+  <!-- Main content -->
+  <main class="dmu-19__main">
+
+    <div class="dmu-19__stage">
+      <div class="dmu-19__wrap">
+
+        <section id="overview" class="dmu-19__section">
+          <header class="dmu-19__head">
+            <h1 class="dmu-19__h1">Overview</h1>
+
+
+
+          </header>
+        </section>
+
+        <section id="temperature" class="dmu-19__section">
+          <header class="dmu-19__head">
+            <h1 class="dmu-19__h1">Temperatura</h1>
+
+            <div id="global_temperature" style="width:800px;height:600;"></div>
+            <script src="plots/global_temperature.js"></script>
+
+            <div id="era5_daily" style="width:800px;height:600;"></div>
+            <script src="plots/era5_daily.js"></script>
+
+          </header>
+        </section>
+
+
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+
+<script>
+function showSection(id) {
+
+  // Hide all sections
+  document.querySelectorAll('.dmu-19__section').forEach(section => {
+    section.style.display = 'none';
+  });
+
+  // Show selected section
+  document.getElementById(id).style.display = 'block';
+
+  // Update active button
+  document.querySelectorAll('.dmu-19__navButton').forEach(button => {
+    button.classList.remove('active');
+  });
+
+  event.currentTarget.classList.add('active');
+}
+
+// Show overview initially
+showSection('overview');
+</script>
+
+</body>
+</html>
