@@ -1,6 +1,5 @@
 # ignore data directories
 data/
-data_fix/
 website/data/
 data_stripes/
 
