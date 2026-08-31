@@ -1,14 +1,12 @@
 import openmeteo_requests
 import pandas as pd
+import time
+import os
 import requests_cache
 from retry_requests import retry
 from downloaders.commons import DATA_FOLDER
-import time
 
 def download():
-
-    end_date = pd.Timestamp.now().strftime("%Y-%m-%d")
-    start_date = "1940-08-15"
 
     cities = {
         "Milano": {
@@ -55,6 +53,24 @@ def download():
 
 
     for city, coords in cities.items():
+
+        end_date = pd.Timestamp.now().strftime("%Y-%m-%d")
+        start_date = "1940-08-15"
+
+        fname_csv = f"{DATA_FOLDER}/city_openmeteo_{city.lower()}.csv"
+
+        df_existing = pd.DataFrame()
+        # if file exists read the data and get the last date
+        if os.path.exists(fname_csv):
+            df_existing = pd.read_csv(fname_csv)
+            last_date = df_existing['date'].max()
+            start_date = pd.to_datetime(last_date).strftime("%Y-%m-%d")
+
+        if start_date == end_date:
+            print(f"No new data to download for {city}. Exiting.")
+            continue
+
+
         df = download_openmeteo(
             latitude=coords["latitude"],
             longitude=coords["longitude"],
@@ -62,9 +78,13 @@ def download():
             end_date=end_date
         )
 
-        time_sleep = 20
-        df.to_csv(f"{DATA_FOLDER}/city_openmeteo_{city.lower()}.csv", index=False)
-        print(f"Open-Meteo data saved to {DATA_FOLDER}/city_openmeteo_{city.lower()}.csv (sleep {time_sleep} seconds)")
+        # Append new data to existing data if it exists
+        if not df_existing.empty:
+            df = pd.concat([df_existing, df]).drop_duplicates(subset=['date']).reset_index(drop=True)
+
+        time_sleep = 30
+        df.to_csv(fname_csv, index=False)
+        print(f"Open-Meteo data saved to {fname_csv} (sleep {time_sleep} seconds)")
         time.sleep(time_sleep)  # Sleep to avoid hitting the API too quickly
 
 

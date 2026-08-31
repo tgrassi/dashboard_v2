@@ -36,4 +36,4 @@ modules = [
 
 for module in modules:
     module.download()
-    break # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DEBUGGING: REMOVE THIS LINE TO DOWNLOAD ALL DATASETS
+    #break # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DEBUGGING: REMOVE THIS LINE TO DOWNLOAD ALL DATASETS
