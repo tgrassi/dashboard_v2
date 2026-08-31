@@ -19,7 +19,9 @@ from preprocessors import (co2_mlo,
                            city_tmin_days,
                            city_heat,
                            city_gauss_max,
-                           stripes_factory
+                           co2_800kyr,
+                           temperature_2kyrs,
+                           stripes_factory,
                            )
 
 # create website data folder if not exists
@@ -27,6 +29,8 @@ if not os.path.exists('website/data'):
     os.makedirs('website/data')
 
 preproc = [
+            temperature_2kyrs,
+            co2_800kyr,
             city_gauss_max,
             city_heat,
             city_tmin_days,
