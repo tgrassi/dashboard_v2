@@ -19,8 +19,8 @@ if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
 
 modules = [
-        glaciers_mass,
         city_openmeteo,
+        glaciers_mass,
         sea_level,
         seaice_south,
         seaice_north,
