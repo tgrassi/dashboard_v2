@@ -18,13 +18,14 @@ const dashboardTheme = {
                 text: "© Galselo Wrapsy " + new Date().getFullYear(),
                 font: {
                     size: 12,
-                    color: "#eceef1"
+                    color: "#eceef1",
                 },
                 x: 0.01,
                 y: 0.01,
                 xref: "paper",
                 yref: "paper",
                 showarrow: false,
+                opacity: 0.5
             }
         ]
     }

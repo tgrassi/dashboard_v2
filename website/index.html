@@ -46,14 +46,20 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Temperatura</h1>
 
-            <div id="global_temperature" style="width:800px;height:600;"></div>
-            <script src="plots/global_temperature.js"></script>
+            <div id="global_temperature"></div>
+            <script>
+              plot("data/global_temperature.json", "global_temperature");
+            </script>
 
-            <div id="era5_daily" style="width:800px;height:600;"></div>
-            <script src="plots/era5_daily.js"></script>
+            <div id="era5_daily"></div>
+            <script>
+              plot("data/era5_daily.json", "era5_daily");
+            </script>
 
-            <div id="era5_daily_anomaly" style="width:800px;height:600;"></div>
-            <script src="plots/era5_daily_anomaly.js"></script>
+            <div id="era5_daily_anomaly"></div>
+            <script>
+              plot("data/era5_daily_anomaly.json", "era5_daily_anomaly");
+            </script>
 
           </header>
         </section>
@@ -63,17 +69,25 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Città</h1>
 
-            <div id="city_tmax_days" style="width:800px;height:600;"></div>
-            <script src="plots/city_tmax_days.js"></script>
+            <div id="city_tmax_days"></div>
+            <script>
+              plot("data/city_tmax_days.json", "city_tmax_days");
+            </script>
 
-            <div id="city_tmin_days" style="width:800px;height:600;"></div>
-            <script src="plots/city_tmin_days.js"></script>
+            <div id="city_tmin_days"></div>
+            <script>
+              plot("data/city_tmin_days.json", "city_tmin_days");
+            </script>
 
-            <div id="city_heat" style="width:800px;height:600;"></div>
-            <script src="plots/city_heat.js"></script>
+            <div id="city_heat"></div>
+            <script>
+              plot("data/city_heat.json", "city_heat");
+            </script>
 
-            <div id="city_gauss_max" style="width:800px;height:600;"></div>
-            <script src="plots/city_gauss_max.js"></script>
+            <div id="city_gauss_max"></div>
+            <script>
+              plot("data/city_gauss_max.json", "city_gauss_max");
+            </script>
 
           </header>
         </section>
@@ -84,23 +98,35 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Oceani e Mari</h1>
 
-            <div id="med_ssta_map" style="width:800px;height:600;"></div>
-            <script src="plots/med_ssta_map.js"></script>
+            <div id="med_ssta_map"></div>
+            <script>
+              plot("data/med_ssta_map.json", "med_ssta_map");
+            </script>
 
-            <div id="era5_ocean" style="width:800px;height:600;"></div>
-            <script src="plots/era5_ocean.js"></script>
+            <div id="era5_ocean"></div>
+            <script>
+              plot("data/era5_ocean.json", "era5_ocean");
+            </script>
 
-            <div id="era5_ocean_anomaly" style="width:800px;height:600;"></div>
-            <script src="plots/era5_ocean_anomaly.js"></script>
+            <div id="era5_ocean_anomaly"></div>
+            <script>
+              plot("data/era5_ocean_anomaly.json", "era5_ocean_anomaly");
+            </script>
 
-            <div id="ocean_heat" style="width:800px;height:600;"></div>
-            <script src="plots/ocean_heat.js"></script>
+            <div id="ocean_heat"></div>
+            <script>
+              plot("data/ocean_heat.json", "ocean_heat");
+            </script>
 
-            <div id="enso" style="width:800px;height:600;"></div>
-            <script src="plots/enso.js"></script>
+            <div id="enso"></div>
+            <script>
+              plot("data/enso.json", "enso");
+            </script>
 
-            <div id="sea_level" style="width:800px;height:600;"></div>
-            <script src="plots/sea_level.js"></script>
+            <div id="sea_level"></div>
+            <script>
+              plot("data/sea_level.json", "sea_level");
+            </script>
 
           </header>
         </section>
@@ -110,17 +136,25 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Gas serra</h1>
 
-            <div id="co2_mlo" style="width:800px;height:600;"></div>
-            <script src="plots/co2_mlo.js"></script>
+            <div id="co2_mlo"></div>
+            <script>
+              plot("data/co2_mlo.json", "co2_mlo");
+            </script>
 
-            <div id="ch4_gl" style="width:800px;height:600;"></div>
-            <script src="plots/ch4_gl.js"></script>
+            <div id="ch4_gl"></div>
+            <script>
+              plot("data/ch4_gl.json", "ch4_gl");
+            </script>
 
-            <div id="n2o_gl" style="width:800px;height:600;"></div>
-            <script src="plots/n2o_gl.js"></script>
+            <div id="n2o_gl"></div>
+            <script>
+              plot("data/n2o_gl.json", "n2o_gl");
+            </script>
 
-            <div id="sf6_gl" style="width:800px;height:600;"></div>
-            <script src="plots/sf6_gl.js"></script>
+            <div id="sf6_gl"></div>
+            <script>
+              plot("data/sf6_gl.json", "sf6_gl");
+            </script>
 
           </header>
         </section>
@@ -130,17 +164,54 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Ghiacci</h1>
 
-            <div id="seaice_north" style="width:800px;height:600;"></div>
-            <script src="plots/seaice_north.js"></script>
+            <div id="seaice_north"></div>
+            <script>
+              plot("data/seaice_north.json", "seaice_north");
+            </script>
 
-            <div id="seaice_south" style="width:800px;height:600;"></div>
-            <script src="plots/seaice_south.js"></script>
+            <div id="seaice_south"></div>
+            <script>
+              plot("data/seaice_south.json", "seaice_south");
+            </script>
 
-            <div id="glaciers_mass" style="width:800px;height:600;"></div>
-            <script src="plots/glaciers_mass.js"></script>
+            <div id="glaciers_mass"></div>
+            <script>
+              plot("data/glaciers_mass.json", "glaciers_mass");
+            </script>
 
           </header>
         </section>
+
+
+
+        <!---------- Stripes --------->
+        <section id="stripes" class="dmu-19__section">
+          <header class="dmu-19__head">
+            <h1 class="dmu-19__h1">Stripes</h1>
+
+            <div id="stripes_global_temperature"></div>
+            <script>
+                plot("data/stripes_global_temperature.json", "stripes_global_temperature");
+            </script>
+
+            <div id="stripes_co2_mlo"></div>
+            <script>
+                plot("data/stripes_co2_mlo.json", "stripes_co2_mlo");
+            </script>
+
+            <div id="stripes_ocean_heat"></div>
+            <script>
+                plot("data/stripes_ocean_heat.json", "stripes_ocean_heat");
+            </script>
+
+            <div id="stripes_glaciers_mass"></div>
+            <script>
+                plot("data/stripes_glaciers_mass.json", "stripes_glaciers_mass");
+            </script>
+
+          </header>
+        </section>
+
       </div>
     </div>
 
