@@ -7,13 +7,16 @@ from preprocessors import (co2_mlo,
                            ocean_heat,
                            ch4_gl,
                            n2o_gl,
-                           sf6_gl)
+                           sf6_gl,
+                           enso
+                           )
 
 # create website data folder if not exists
 if not os.path.exists('website/data'):
     os.makedirs('website/data')
 
 preproc = [
+            enso,
             sf6_gl,
             n2o_gl,
             ch4_gl,
