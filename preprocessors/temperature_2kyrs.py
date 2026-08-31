@@ -42,4 +42,4 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, temperatures, "", "temperature_2kyrs.json")
+    save_stripes(dates, temperatures, "Temperatura ultimi 2000 anni", "temperature_2kyrs.json", cmap="RdBu", symmetric_minmax=True)
