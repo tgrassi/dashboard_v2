@@ -8,7 +8,13 @@ from preprocessors import (co2_mlo,
                            ch4_gl,
                            n2o_gl,
                            sf6_gl,
-                           enso
+                           enso,
+                           era5_daily_anomaly,
+                           era5_ocean_anomaly,
+                           seaice_north,
+                           seaice_south,
+                           glaciers_mass,
+                           sea_level
                            )
 
 # create website data folder if not exists
@@ -16,6 +22,12 @@ if not os.path.exists('website/data'):
     os.makedirs('website/data')
 
 preproc = [
+            sea_level,
+            glaciers_mass,
+            seaice_south,
+            seaice_north,
+            era5_ocean_anomaly,
+            era5_daily_anomaly,
             enso,
             sf6_gl,
             n2o_gl,

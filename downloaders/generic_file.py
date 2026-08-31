@@ -2,7 +2,7 @@ import requests
 import os
 from downloaders.commons import DATA_FOLDER
 
-def download_file(url, destination_filename):
+def download_file(url, destination_filename, verbose_error=True):
     """Download a file from a URL and save it to the data folder."""
     # Get the directory of the current file
     output_path = os.path.join(DATA_FOLDER, destination_filename)
@@ -18,8 +18,10 @@ def download_file(url, destination_filename):
         with open(output_path, 'w') as f:
             f.write(response.text)
 
-        print(f"Successfully downloaded CSV to {output_path}")
+        print(f"Successfully downloaded file to {output_path}")
         return output_path
 
     except requests.exceptions.RequestException as e:
-        print(f"Error downloading file: {e}")
+        if verbose_error:
+            print(f"Error downloading file: {e}")
+        return None

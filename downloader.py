@@ -5,7 +5,12 @@ from downloaders import (ghg_mlo,
                          sunspots,
                          mediteranean_ssta,
                          ocean_heat,
-                         elnino
+                         elnino,
+                         seaice_north,
+                         seaice_south,
+                         glaciers_mass,
+                         sea_level,
+                         city_openmeteo
                          )
 from downloaders.commons import DATA_FOLDER
 
@@ -14,6 +19,11 @@ if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
 
 modules = [
+        glaciers_mass,
+        city_openmeteo,
+        sea_level,
+        seaice_south,
+        seaice_north,
         ocean_heat,
         elnino,
         mediteranean_ssta,
@@ -26,3 +36,4 @@ modules = [
 
 for module in modules:
     module.download()
+    break # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DEBUGGING: REMOVE THIS LINE TO DOWNLOAD ALL DATASETS
