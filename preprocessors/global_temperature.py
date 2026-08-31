@@ -1,8 +1,8 @@
 # load GLB.Ts+dSST.csv
 import pandas as pd
 import json
-import matplotlib.pyplot as plt
 import numpy as np
+from preprocessors.stripes_saver import save_stripes
 
 def preprocess():
     """Preprocess the global temperature data."""
@@ -54,3 +54,6 @@ def preprocess():
 
     with open("website/data/global_temperature.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    # save stripes json for the stripes factory
+    save_stripes(dates, temperatures, "Anomalia temperatura", "global_temperature.json", symmetric_minmax=True)

@@ -11,6 +11,4 @@ PLOTLY_COLOR_SEQUENCE = [
     '#17becf'   # blue-teal
 ]
 
-
-
 MONTHS_NAME = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]

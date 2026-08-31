@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 
+from preprocessors.stripes_saver import save_stripes
+
 
 def preprocess():
 
@@ -52,3 +54,5 @@ def preprocess():
     with open("website/data/glaciers_mass.json", "w") as f:
         json.dump(bundle, f, indent=4)
 
+    # save stripes json for the stripes factory
+    save_stripes(dates, mass_balance, "Bilancio di massa dei ghiacciai", "glaciers_mass.json", cmap="Blues")

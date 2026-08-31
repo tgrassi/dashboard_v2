@@ -18,7 +18,8 @@ from preprocessors import (co2_mlo,
                            city_tmax_days,
                            city_tmin_days,
                            city_heat,
-                           city_gauss_max
+                           city_gauss_max,
+                           stripes_factory
                            )
 
 # create website data folder if not exists
@@ -46,6 +47,7 @@ preproc = [
             era5_daily,
             era5_ocean,
             ocean_heat,
+            stripes_factory # IMPORTANT: this must be the last one because it reads all the json files created by the other preprocessors
         ]
 
 for p in preproc:

@@ -2,6 +2,8 @@ import json
 import numpy as np
 import datetime
 
+from preprocessors.stripes_saver import save_stripes
+
 def preprocess():
 
     fname = "data/ocean_heat.csv"
@@ -13,8 +15,6 @@ def preprocess():
         date, h = line.strip().split(",")
         year, month = date.split("-")
         dates.append(datetime.datetime(int(year), int(month), 1).strftime("%Y-%m-%d"))
-
-        dates.append(date)
         heat.append(float(h))
 
     val = np.abs(heat).max()
@@ -45,3 +45,7 @@ def preprocess():
 
     with open("website/data/ocean_heat.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+
+    # save stripes json for the stripes factory
+    save_stripes(dates, heat, "Calore oceani", "ocean_heat.json", symmetric_minmax=True)

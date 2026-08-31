@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from preprocessors.stripes_saver import save_stripes
 
 def preprocess():
 
@@ -43,3 +44,7 @@ def preprocess():
 
     with open("website/data/co2_mlo.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+
+    # save stripes json for the stripes factory
+    save_stripes(dates_monthly, co2_monthly, "Concentrazione di CO2", "co2_mlo.json", symmetric_minmax=False)
