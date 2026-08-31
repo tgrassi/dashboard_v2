@@ -2,10 +2,10 @@ import pandas as pd
 import json
 
 def preprocess():
-    """Preprocess the global temperature data."""
+    """Preprocess the global temperature ocean data."""
 
     # date,2t,clim_91-20,ano_91-20,status
-    df = pd.read_csv("data/era5_daily_series_2t_global.csv", skiprows=1, comment='#')
+    df = pd.read_csv("data/era5_daily_series_sst_60S-60N_ocean.csv", skiprows=1, comment='#')
 
     # unique years
     years = df["date"].str[:4].unique()
@@ -24,7 +24,7 @@ def preprocess():
         dates = ("1970-" + df_year["date"].str[5:]).tolist()
 
         # get the temperatures for the current year
-        temperatures = df_year["2t"].tolist()
+        temperatures = df_year["sst"].tolist()
 
         # if the year is greater than max_year-2, make it visible, otherwise make it legendonly
         # (so that it is not visible by default but still in the legend)
@@ -52,7 +52,7 @@ def preprocess():
     last_year = years[-1]
     last_year_df = df[df["date"].str.startswith(last_year)]
     last_date = "1970-" + last_year_df["date"].iloc[-1][5:]
-    last_temperature = last_year_df["2t"].iloc[-1]
+    last_temperature = last_year_df["sst"].iloc[-1]
 
     last_date_text = last_year_df["date"].iloc[-1]
     last_date_year = last_date_text[:4]
@@ -85,5 +85,5 @@ def preprocess():
     # first layout so it is easier to debug in the json file
     bundle = {"layout": layout, "data": data}
 
-    with open("website/data/era5_daily.json", "w") as f:
+    with open("website/data/era5_ocean.json", "w") as f:
         json.dump(bundle, f, indent=4)

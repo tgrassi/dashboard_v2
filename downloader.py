@@ -1,3 +1,4 @@
+import os
 from downloaders import (ghg_mlo,
                          nasa_ssta,
                          pulse,
@@ -6,6 +7,11 @@ from downloaders import (ghg_mlo,
                          ocean_heat,
                          elnino
                          )
+from downloaders.commons import DATA_FOLDER
+
+# create data folder if not exists
+if not os.path.exists(DATA_FOLDER):
+    os.makedirs(DATA_FOLDER)
 
 modules = [
         ocean_heat,
@@ -20,4 +26,3 @@ modules = [
 
 for module in modules:
     module.download()
-    break
