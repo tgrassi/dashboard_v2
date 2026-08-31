@@ -1,6 +1,6 @@
 import json
-
 import pandas as pd
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE
 
 def preprocess():
 
@@ -17,18 +17,7 @@ def preprocess():
 
 
     # this is to have 9 colors and to avoid the same color when showing a line every 10 years
-    color_sequence = [
-        '#1f77b4',  # muted blue
-        '#ff7f0e',  # safety orange
-        '#2ca02c',  # cooked asparagus green
-        '#d62728',  # brick red
-        '#9467bd',  # muted purple
-        '#8c564b',  # chestnut brown
-        '#e377c2',  # raspberry yogurt pink
-        '#7f7f7f',  # middle gray
-        '#bcbd22',  # curry yellow-green
-    # '#17becf'   # blue-teal
-    ]
+    color_sequence = PLOTLY_COLOR_SEQUENCE[:9]
 
     data = []
     for year in years[::-1]:

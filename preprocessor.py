@@ -14,7 +14,11 @@ from preprocessors import (co2_mlo,
                            seaice_north,
                            seaice_south,
                            glaciers_mass,
-                           sea_level
+                           sea_level,
+                           city_tmax_days,
+                           city_tmin_days,
+                           city_heat,
+                           city_gauss_max
                            )
 
 # create website data folder if not exists
@@ -22,6 +26,10 @@ if not os.path.exists('website/data'):
     os.makedirs('website/data')
 
 preproc = [
+            city_gauss_max,
+            city_heat,
+            city_tmin_days,
+            city_tmax_days,
             sea_level,
             glaciers_mass,
             seaice_south,
@@ -37,7 +45,7 @@ preproc = [
             global_temperature,
             era5_daily,
             era5_ocean,
-            ocean_heat
+            ocean_heat,
         ]
 
 for p in preproc:
