@@ -19,7 +19,7 @@ def download():
     #  force_download=True,
     #  subset_method="strict",
       disable_progress_bar=True,
-      output_filename = "ssta_med.nc",
+      output_filename = "med_ssta_map.nc",
       output_directory = DATA_FOLDER,
       username="tgrassi1",
       password="azy+<e2#dLAVaSi@WHC!",
