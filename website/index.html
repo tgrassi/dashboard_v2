@@ -38,6 +38,38 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Overview</h1>
 
+          <div class="container">
+
+            <div class="dmu-19__card">
+              <div class="dmu-19__cardTop">
+                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
+              </div>
+              <h2 class="dmu-19__value">+1.1°C</h2>
+            </div>
+
+            <div class="dmu-19__card">
+              <div class="dmu-19__cardTop">
+                <span class="dmu-19__badge dmu-19__badge--feature">Concentrazione CO<sub>2</sub></span>
+              </div>
+              <h2 class="dmu-19__value">690ppm</h2>
+            </div>
+
+            <div class="dmu-19__card">
+              <div class="dmu-19__cardTop">
+                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
+              </div>
+              <h2 class="dmu-19__value">+1.1°C</h2>
+            </div>
+
+            <div class="dmu-19__card">
+              <div class="dmu-19__cardTop">
+                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
+              </div>
+              <h2 class="dmu-19__value">+1.1°C</h2>
+            </div>
+
+
+          </div>
           </header>
         </section>
 
@@ -209,6 +241,11 @@
                 plot("data/stripes_glaciers_mass.json", "stripes_glaciers_mass");
             </script>
 
+            <div id="stripes_temperature_2kyrs"></div>
+            <script>
+                plot("data/stripes_temperature_2kyrs.json", "stripes_temperature_2kyrs");
+            </script>
+
           </header>
         </section>
 
@@ -261,6 +298,8 @@ function showSection(id) {
 // Show overview initially
 showSection('overview');
 </script>
-
+<footer class="dmu-19__footer">
+  <p>© 2026 Climate Dashboard | Galselo Wrapsy | All rights reserved</p>
+</footer>
 </body>
 </html>

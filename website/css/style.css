@@ -129,7 +129,7 @@ html, body {
 }
 
 .dmu-19__card {
-  grid-column: 2;
+  /* grid-column: 2; */
   display: grid;
   gap: .4rem;
   padding: 1.05rem 1.15rem;
@@ -166,13 +166,23 @@ html, body {
   display: inline-flex;
   align-items: center;
   font-family: var(--mono);
-  font-size: .66rem;
+  font-size: 1.5rem;
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: .24rem .5rem;
   border-radius: .35rem;
-  border: 1px solid currentColor;
+  border: 0px solid currentColor;
 }
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1rem;
+}
+
+/*.container div {
+    border: 1px solid white;
+}*/
 
 .dmu-19__badge--feature {
   color: var(--feature);
@@ -200,6 +210,13 @@ html, body {
 .dmu-19__title {
   margin: 0;
   font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+.dmu-19__value {
+  margin: 0;
+  font-size: 5rem;
   font-weight: 600;
   letter-spacing: -.02em;
 }
@@ -327,6 +344,15 @@ html, body {
     width: 100%;
 }
 
+
+/* Footer */
+.dmu-19__footer {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    text-align: right;
+    font-size: 0.8rem;
+    color: rgb(179, 177, 177);
+}
 
 /* Mobile */
 
