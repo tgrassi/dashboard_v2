@@ -72,9 +72,12 @@ def preprocess():
 
 
     layout = {
-                "xaxis": {"tickformat": "%b"},
+                "xaxis": {"tickformat": "%b",
+                          "range": [f"{last_year}-01-01", f"{last_year}-12-31"],
+                          "title": {"text": int(last_year)},
+                          },
                 "yaxis": {"title": {"text": "Differenza di temperatura (°C)"}},
-                "title": {"text": f"Anomalia temperautura massima giornaliera {last_year} rispetto alla media {year_avg_min}-{year_avg_max}"},
+                "title": {"text": f"Anomalia temperautura massima giornaliera <b>{last_year}</b> rispetto alla media {year_avg_min}-{year_avg_max}"},
              }
 
     # first layout so it is easier to debug in the json file

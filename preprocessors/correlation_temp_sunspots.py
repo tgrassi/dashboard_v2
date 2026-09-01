@@ -6,7 +6,8 @@ from scipy.interpolate import interp1d
 
 def preprocess():
     # 1749 01 1749.042   96.7  -1.0    -1
-    df = pd.read_csv("data/sunspots.txt", names=["year", "month", "decimal_date", "sunspots", "a", "b", "c"], comment='#', delim_whitespace=True, header=None)
+    df = pd.read_csv("data/sunspots.txt", names=["year", "month", "decimal_date", "sunspots", "a", "b", "c"],
+                     comment='#', sep='\s+', header=None)
 
     dates_sunspots = df['decimal_date'].tolist()
     values_sunspots = df['sunspots'].tolist()

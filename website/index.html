@@ -100,6 +100,11 @@
               plot("data/city_gauss_max.json", "city_gauss_max");
             </script>
 
+            <div id="city_summer"></div>
+            <script>
+              plot("data/city_summer.json", "city_summer");
+            </script>
+
           </header>
         </section>
 
@@ -305,13 +310,17 @@ function showSection(id) {
   });
 
   event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Show overview initially
 showSection('overview');
+
 </script>
+
 <footer class="dmu-19__footer">
   <p>© 2026 Climate Dashboard | Galselo Wrapsy | All rights reserved</p>
 </footer>
+
 </body>
 </html>

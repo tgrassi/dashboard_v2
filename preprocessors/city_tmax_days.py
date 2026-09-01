@@ -46,20 +46,22 @@ def preprocess():
         tmax_days_ma = pd.Series(tmax_days).rolling(window=window_size, min_periods=1).mean().tolist()
 
 
+        years = [int(year) for year in years]
+
         # save to json
         data.append({
                 "x": years,
                 "y": tmax_days_ma,
                 "type": "line",
-                "name": f"{city.title()} ({window_size} anni)",
+                "name": f"{city.title()} (media)",
                 "visible": visible,
                 })
 
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {},
                 "yaxis": {"title": {"text": "Numero di giorni"}},
-                "title": {"text": f"Giorni con temperatura massima > {tmax_threshold}°C"},
+                "title": {"text": f"Giorni all'anno con temperatura massima > {tmax_threshold}°C"},
              }
 
     # first layout so it is easier to debug in the json file
