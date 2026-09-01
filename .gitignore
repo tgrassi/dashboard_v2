@@ -2,6 +2,7 @@
 data/
 website/data/
 data_stripes/
+data_overview/
 
 # Python bytecode
 __pycache__/

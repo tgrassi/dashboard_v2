@@ -1,6 +1,9 @@
 import numpy as np
 import json
 
+from preprocessors.overview_factory import save_overview
+from preprocessors.stripes_factory import save_stripes
+
 
 def preprocess():
 
@@ -50,3 +53,9 @@ def preprocess():
 
     with open("website/data/sea_level.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    # save stripes json for the stripes factory
+    save_stripes(dates, sea_level, "Livello oceani", "sea_level.json", symmetric_minmax=False)
+
+    # save overview data for overview factory
+    save_overview("sea_level", "Livello oceani", f"{sea_level[-1]:+.1f} mm", dates[-1])

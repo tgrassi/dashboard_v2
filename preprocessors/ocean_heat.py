@@ -2,7 +2,8 @@ import json
 import numpy as np
 import datetime
 
-from preprocessors.stripes_saver import save_stripes
+from preprocessors.overview_factory import save_overview
+from preprocessors.stripes_factory import save_stripes
 
 def preprocess():
 
@@ -49,3 +50,6 @@ def preprocess():
 
     # save stripes json for the stripes factory
     save_stripes(dates, heat, "Calore oceani", "ocean_heat.json", symmetric_minmax=True)
+
+    # save overview data for overview factory
+    save_overview("ocean_heat", "Calore Oceani (0-700m)", f"{heat[-1]:.1f}×10²²J", dates[-1])

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="https://cdn.plot.ly/plotly-4.0.0.min.js" charset="utf-8"></script>
+<script src="https://cdn.plot.ly/plotly-locale-it-latest.js"></script>
 <script src="plotting/plotly_theme.js"></script>
 <script src="plotting/plot.js"></script>
 
@@ -36,39 +37,10 @@
         <!---------- Overview --------->
         <section id="overview" class="dmu-19__section">
           <header class="dmu-19__head">
-            <h1 class="dmu-19__h1">Overview</h1>
+            <h1 class="dmu-19__h1">Panoramica</h1>
 
           <div class="container">
-
-            <div class="dmu-19__card">
-              <div class="dmu-19__cardTop">
-                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
-              </div>
-              <h2 class="dmu-19__value">+1.1°C</h2>
-            </div>
-
-            <div class="dmu-19__card">
-              <div class="dmu-19__cardTop">
-                <span class="dmu-19__badge dmu-19__badge--feature">Concentrazione CO<sub>2</sub></span>
-              </div>
-              <h2 class="dmu-19__value">690ppm</h2>
-            </div>
-
-            <div class="dmu-19__card">
-              <div class="dmu-19__cardTop">
-                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
-              </div>
-              <h2 class="dmu-19__value">+1.1°C</h2>
-            </div>
-
-            <div class="dmu-19__card">
-              <div class="dmu-19__cardTop">
-                <span class="dmu-19__badge dmu-19__badge--feature">Temperatura Globale</span>
-              </div>
-              <h2 class="dmu-19__value">+1.1°C</h2>
-            </div>
-
-
+            <script src="data/overview.js"></script>
           </div>
           </header>
         </section>
@@ -133,6 +105,11 @@
             <div id="med_ssta_map"></div>
             <script>
               plot("data/med_ssta_map.json", "med_ssta_map");
+            </script>
+
+            <div id="med_gaussian"></div>
+            <script>
+              plot("data/med_gaussian.json", "med_gaussian");
             </script>
 
             <div id="era5_ocean"></div>
@@ -219,7 +196,7 @@
         <!---------- Stripes --------->
         <section id="stripes" class="dmu-19__section">
           <header class="dmu-19__head">
-            <h1 class="dmu-19__h1">Stripes</h1>
+            <h1 class="dmu-19__h1">Climate Stripes</h1>
 
             <div id="stripes_global_temperature"></div>
             <script>
@@ -239,6 +216,11 @@
             <div id="stripes_glaciers_mass"></div>
             <script>
                 plot("data/stripes_glaciers_mass.json", "stripes_glaciers_mass");
+            </script>
+
+            <div id="stripes_sea_level"></div>
+            <script>
+                plot("data/stripes_sea_level.json", "stripes_sea_level");
             </script>
 
             <div id="stripes_temperature_2kyrs"></div>

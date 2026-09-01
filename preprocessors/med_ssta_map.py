@@ -1,3 +1,4 @@
+from preprocessors.overview_factory import save_overview
 import xarray as xr
 import numpy as np
 import json
@@ -39,3 +40,8 @@ def preprocess():
 
     with open("website/data/med_ssta_map.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    ssta_mean = np.nanmean(sst_anomaly)
+
+    # save overview data for overview factory
+    save_overview("med_ssta", "Anomalia temperatura Mediterraneo", f"{ssta_mean:+.1f}°C", "")

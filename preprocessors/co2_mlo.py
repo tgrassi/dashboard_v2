@@ -1,6 +1,7 @@
 import pandas as pd
 import json
-from preprocessors.stripes_saver import save_stripes
+from preprocessors.stripes_factory import save_stripes
+from preprocessors.overview_factory import save_overview
 
 def preprocess():
 
@@ -48,3 +49,6 @@ def preprocess():
 
     # save stripes json for the stripes factory
     save_stripes(dates_monthly, co2_monthly, "Concentrazione di CO2", "co2_mlo.json", symmetric_minmax=False)
+
+    # save overview data for overview factory
+    save_overview("co2_mlo", "Concentrazione di CO2", f"{co2_daily[-1]:.1f}ppm", dates_daily[-1])

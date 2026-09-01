@@ -1,10 +1,11 @@
+import os
 import datetime
 import copernicusmarine
 from downloaders.commons import DATA_FOLDER
 
 def download():
 
-    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)  # yesterday
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     yesterday_iso = yesterday.strftime("%Y-%m-%dT00:00:00")
 
     copernicusmarine.subset(
@@ -19,8 +20,14 @@ def download():
     #  force_download=True,
     #  subset_method="strict",
       disable_progress_bar=True,
-      output_filename = "med_ssta_map.nc",
+      output_filename = "temp.nc",
       output_directory = DATA_FOLDER,
       username="tgrassi1",
       password="azy+<e2#dLAVaSi@WHC!",
     )
+
+    # replace med_ssta_map.nc with temp.nc, this is because copernicusmarine does not overwrite the file
+    original_file = os.path.join(DATA_FOLDER, "med_ssta_map.nc")
+    temp_file = os.path.join(DATA_FOLDER, "temp.nc")
+    os.replace(temp_file, original_file)
+    print(f"Mediteranean SSTA data downloaded and saved to {original_file}")

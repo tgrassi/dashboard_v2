@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 
+from preprocessors.overview_factory import save_overview
+
 def preprocess():
     """Preprocess the global temperature data."""
 
@@ -20,8 +22,8 @@ def preprocess():
         # filter the dataframe for the current year
         df_year = df[df["date"].str.startswith(year)]
 
-        # change the year to 1970 to have the same x axis for all years (1970 is a leap year)
-        dates = ("1970-" + df_year["date"].str[5:]).tolist()
+        # change the year to 1972 to have the same x axis for all years (1972 is a leap year)
+        dates = ("1972-" + df_year["date"].str[5:]).tolist()
 
         # get the temperatures for the current year
         anomaly = df_year["ano_91-20"].tolist()
@@ -51,7 +53,7 @@ def preprocess():
     # add the last point of the last year as scatter point (so that it is visible in the legend)
     last_year = years[-1]
     last_year_df = df[df["date"].str.startswith(last_year)]
-    last_date = "1970-" + last_year_df["date"].iloc[-1][5:]
+    last_date = "1972-" + last_year_df["date"].iloc[-1][5:]  # 1972 is a leap year, so that the x axis is consistent with the other years
     last_anomaly = last_year_df["ano_91-20"].iloc[-1]
 
     last_date_text = last_year_df["date"].iloc[-1]
@@ -88,3 +90,7 @@ def preprocess():
 
     with open("website/data/era5_daily_anomaly.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+
+    # save overview data for overview factory
+    save_overview("era5_daily_anomaly", "Anomalia Temperatura Globale (daily)", f"{last_anomaly:+.1f}°C", last_date)

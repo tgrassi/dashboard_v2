@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 
+from preprocessors.overview_factory import save_overview
+
 def preprocess():
     # YR  MON  NINO1+2  ANOM  NINO3  ANOM.1  NINO4  ANOM.2  NINO3.4  ANOM.3
     df = pd.read_csv("data/elnino.txt", comment='#', sep='\s+')
@@ -9,10 +11,10 @@ def preprocess():
     dates = df['YR'].astype(str) + '-' + df['MON'].astype(str)
     dates = [str(x) for x in pd.to_datetime(dates, format='%Y-%m').tolist()]
 
-    nino12 = [str(x) for x in df['ANOM'].tolist()]
-    nino3 = [str(x) for x in df['ANOM.1'].tolist()]
-    nino4 = [str(x) for x in df['ANOM.2'].tolist()]
-    nino34 = [str(x) for x in df['ANOM.3'].tolist()]
+    nino12 = [float(x) for x in df['ANOM'].tolist()]
+    nino3 = [float(x) for x in df['ANOM.1'].tolist()]
+    nino4 = [float(x) for x in df['ANOM.2'].tolist()]
+    nino34 = [float(x) for x in df['ANOM.3'].tolist()]
 
     val_12 = df['ANOM'].abs().max()
     val_3 = df['ANOM.1'].abs().max()
@@ -74,8 +76,7 @@ def preprocess():
                     "cmin": -val_4,
                     "cmax": val_4
                 }
-            },
-
+            }
 ]
 
     layout = {
@@ -89,3 +90,6 @@ def preprocess():
 
     with open("website/data/enso.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    # save overview data for overview factory
+    save_overview("enso", "El Niño 3+4 ", f"{nino34[-1]:+.1f}°C", dates[-1])

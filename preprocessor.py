@@ -4,6 +4,7 @@ from preprocessors import (co2_mlo,
                            era5_daily,
                            era5_ocean,
                            med_ssta_map,
+                           med_gaussian,
                            ocean_heat,
                            ch4_gl,
                            n2o_gl,
@@ -22,13 +23,31 @@ from preprocessors import (co2_mlo,
                            co2_800kyr,
                            temperature_2kyrs,
                            stripes_factory,
+                           overview_factory
                            )
 
 # create website data folder if not exists
 if not os.path.exists('website/data'):
     os.makedirs('website/data')
 
+# create data_stripes folder if not exists
+if not os.path.exists('data_stripes'):
+    os.makedirs('data_stripes')
+
+# remove all files in data_stripes folder
+for filename in os.listdir('data_stripes'):
+    os.remove(os.path.join('data_stripes', filename))
+
+# create data_overview folder if not exists
+if not os.path.exists('data_overview'):
+    os.makedirs('data_overview')
+
+# remove all files in data_overview folder
+for filename in os.listdir('data_overview'):
+    os.remove(os.path.join('data_overview', filename))
+
 preproc = [
+            med_gaussian,
             temperature_2kyrs,
             co2_800kyr,
             city_gauss_max,
@@ -51,7 +70,8 @@ preproc = [
             era5_daily,
             era5_ocean,
             ocean_heat,
-            stripes_factory # IMPORTANT: this must be the last one because it reads all the json files created by the other preprocessors
+            stripes_factory, # IMPORTANT: this must be the last one because it reads all the json files created by the other preprocessors
+            overview_factory # IMPORTANT: same as above
         ]
 
 for p in preproc:

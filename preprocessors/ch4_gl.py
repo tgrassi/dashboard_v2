@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from preprocessors.overview_factory import save_overview
 
 def preprocess():
 
@@ -38,3 +39,6 @@ def preprocess():
 
     with open("website/data/ch4_gl.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    # save overview data for overview factory
+    save_overview("ch4_gl", "Concentrazione di CH4", f"{ch4_average[-1]:.1f}ppb", dates[-1])

@@ -22,6 +22,7 @@ function plot(data_json, id, style=null){
             var layout = bundle.layout;
             layout.template = dashboardTheme;
 
-            Plotly.newPlot(element, data, layout);
+            var config = {locale: 'it'};
+            Plotly.newPlot(element, data, layout, config);
         });
 }

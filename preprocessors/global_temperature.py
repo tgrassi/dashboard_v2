@@ -2,7 +2,8 @@
 import pandas as pd
 import json
 import numpy as np
-from preprocessors.stripes_saver import save_stripes
+from preprocessors.stripes_factory import save_stripes
+from preprocessors.overview_factory import save_overview
 
 def preprocess():
     """Preprocess the global temperature data."""
@@ -44,7 +45,7 @@ def preprocess():
              }]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {"tickformat": "%b %Y"},
                 "yaxis": {"title": {"text": "Anomalia temperatura (°C)"}},
                 "title": {"text": "Anomalia temperatura globale (media 1951-1980)"}
              }
@@ -57,3 +58,6 @@ def preprocess():
 
     # save stripes json for the stripes factory
     save_stripes(dates, temperatures, "Anomalia temperatura", "global_temperature.json", symmetric_minmax=True)
+
+    # save overview data for overview factory
+    save_overview("global_temperature", "Anomalia Temperatura Globale", f"{temperatures[-1]:+.1f}°C", dates[-1])

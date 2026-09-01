@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-from preprocessors.stripes_saver import save_stripes
+from preprocessors.stripes_factory import save_stripes
 
 def preprocess():
 

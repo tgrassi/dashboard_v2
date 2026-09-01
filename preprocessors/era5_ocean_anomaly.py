@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 
+from preprocessors.overview_factory import save_overview
+
 def preprocess():
     """Preprocess the global temperature ocean data."""
 
@@ -88,3 +90,6 @@ def preprocess():
 
     with open("website/data/era5_ocean_anomaly.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    # save overview data for overview factory
+    save_overview("era5_ocean_anomaly", "Anomalia Temperatura Oceani (daily)", f"{last_temperature:+.1f}°C", last_date)
