@@ -55,4 +55,4 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, mass_balance, "Bilancio di massa dei ghiacciai (Gt)", "glaciers_mass.json", cmap="Blues")
+    save_stripes(dates, mass_balance, "Bilancio di massa dei ghiacciai (Gt)", "glaciers_mass.json", cmap="Greys")

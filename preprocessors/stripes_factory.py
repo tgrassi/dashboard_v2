@@ -17,6 +17,7 @@ def preprocess():
         ydata = data["y"]
         cmap = data["cmap"]
         symmetric_minmax = data["symmetric_minmax"]
+        reverse_cmap = data["reverse_cmap"]
 
         if symmetric_minmax:
             val = np.abs(ydata).max()
@@ -35,6 +36,7 @@ def preprocess():
                 "z": z,
                 "type": "heatmap",
                 "colorscale": cmap,
+                "reversescale": reverse_cmap,
                 "zmin": cmin,
                 "zmax": cmax
                 }]
@@ -52,7 +54,7 @@ def preprocess():
             json.dump(bundle, f, indent=4)
 
 
-def save_stripes(xdata, ydata, title, filename, cmap="RdBu", symmetric_minmax=False):
+def save_stripes(xdata, ydata, title, filename, cmap="RdBu", symmetric_minmax=False, reverse_cmap=False):
 
     if filename.endswith(".json"):
         filename = filename[:-5]
@@ -62,6 +64,7 @@ def save_stripes(xdata, ydata, title, filename, cmap="RdBu", symmetric_minmax=Fa
             "x": xdata,
             "y": ydata,
             "symmetric_minmax": symmetric_minmax,
+            "reverse_cmap": reverse_cmap,
             "cmap": cmap
             }
 
