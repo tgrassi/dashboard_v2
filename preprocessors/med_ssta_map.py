@@ -35,7 +35,7 @@ def preprocess():
              }]
 
     layout = {
-        "title": {"text": "Anomalia della temperatura superficiale del mare nel Mediterraneo"},
+        "title": {"text": f"Anomalia della temperatura superficiale del mare nel Mediterraneo ({date_ddmmyyyy})"},
              }
 
     # first layout so it is easier to debug in the json file
