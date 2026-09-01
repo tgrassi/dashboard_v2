@@ -37,12 +37,14 @@
         <!---------- Overview --------->
         <section id="overview" class="dmu-19__section">
           <header class="dmu-19__head">
-            <h1 class="dmu-19__h1">Panoramica</h1>
+            <h1 class="dmu-19__h1">Dashboard Climatica<sup>*</sup> - Panoramica</h1>
             <br><br>
 
           <div class="container">
             <script src="data/overview.js"></script>
           </div>
+
+          * Versione beta, mancano referenze e spiegazioni. Per alcuni dati mancano dettagli (tipo periodo di riferimento, unità di misura, ecc.).<br>
           </header>
         </section>
 
@@ -255,6 +257,24 @@
           <div id="temperature_2kyrs"></div>
           <script>
             plot("data/temperature_2kyrs.json", "temperature_2kyrs");
+          </script>
+
+        </header>
+      </section>
+
+      <!---------- Correlations --------->
+      <section id="correlations" class="dmu-19__section">
+        <header class="dmu-19__head">
+          <h1 class="dmu-19__h1">Correlazioni</h1>
+
+          <div id="correlation_temp_co2"></div>
+          <script>
+            plot("data/correlation_temp_co2.json", "correlation_temp_co2");
+          </script>
+
+          <div id="correlation_temp_sunspots"></div>
+          <script>
+            plot("data/correlation_temp_sunspots.json", "correlation_temp_sunspots");
           </script>
 
         </header>

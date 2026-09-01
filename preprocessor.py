@@ -23,6 +23,8 @@ from preprocessors import (co2_mlo,
                            co2_800kyr,
                            temperature_2kyrs,
                            rank_months,
+                           correlation_temp_co2,
+                           correlation_temp_sunspots,
                            stripes_factory,
                            overview_factory
                            )
@@ -48,6 +50,8 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            correlation_temp_sunspots,
+            correlation_temp_co2,
             rank_months,
             med_gaussian,
             temperature_2kyrs,
