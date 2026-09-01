@@ -12,3 +12,5 @@ PLOTLY_COLOR_SEQUENCE = [
 ]
 
 MONTHS_NAME = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+
+MONTHS_NAME_SHORT = [x[:3] for x in MONTHS_NAME]

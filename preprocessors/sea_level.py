@@ -3,7 +3,7 @@ import json
 
 from preprocessors.overview_factory import save_overview
 from preprocessors.stripes_factory import save_stripes
-
+from preprocessors.commons import MONTHS_NAME
 
 def preprocess():
 
@@ -55,7 +55,11 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, sea_level, "Livello oceani", "sea_level.json", symmetric_minmax=False)
+    save_stripes(dates, sea_level, "Livello oceani (mm)", "sea_level.json", symmetric_minmax=False)
 
     # save overview data for overview factory
-    save_overview("sea_level", "Livello oceani", f"{sea_level[-1]:+.1f} mm", dates[-1])
+    year = int(dates[-1])
+    month_decimal = float(dates[-1]) - year
+    month_name = MONTHS_NAME[int(month_decimal * 12)]
+    date_mmyyyy = f"{month_name} {year}"
+    save_overview("sea_level", f"Livello oceani (mm, {date_mmyyyy})", f"{sea_level[-1]:+.1f}", dates[-1])

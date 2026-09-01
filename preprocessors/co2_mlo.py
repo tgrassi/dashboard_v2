@@ -10,6 +10,7 @@ def preprocess():
     dates_daily = df['decimal_date'].tolist()
     co2_daily = df['co2'].tolist()
 
+    last_date_ddmmyyyy = str(df["day"].tolist()[-1]) + "/" + str(df["month"].tolist()[-1]) + "/" + str(df["year"].tolist()[-1])
 
     # year,month,decimal date,average,deseasonalized,ndays,sdev,unc
     df = pd.read_csv("data/co2_mm_mlo.csv", comment='#')
@@ -48,7 +49,7 @@ def preprocess():
 
 
     # save stripes json for the stripes factory
-    save_stripes(dates_monthly, co2_monthly, "Concentrazione di CO2", "co2_mlo.json", symmetric_minmax=False)
+    save_stripes(dates_monthly, co2_monthly, "Concentrazione di CO2 (ppm)", "co2_mlo.json", symmetric_minmax=False)
 
     # save overview data for overview factory
-    save_overview("co2_mlo", "Concentrazione di CO2", f"{co2_daily[-1]:.1f}ppm", dates_daily[-1])
+    save_overview("co2_mlo", f"Concentrazione di CO2 (ppm, {last_date_ddmmyyyy})", f"{co2_daily[-1]:.1f}", dates_daily[-1])

@@ -2,6 +2,7 @@
 import pandas as pd
 import json
 import numpy as np
+from preprocessors.commons import MONTHS_NAME
 from preprocessors.stripes_factory import save_stripes
 from preprocessors.overview_factory import save_overview
 
@@ -16,8 +17,11 @@ def preprocess():
 
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
+    last_month = "-"
+
     dates = []
     temperatures = []
+    temperatures_yearly = []
     for year in years:
         # loop on months columns
         for i, month in enumerate(months):
@@ -28,21 +32,44 @@ def preprocess():
                 date = f"{year}-{i+1:02d}-01"
                 dates.append(date)
                 temperatures.append(float(value))
+                last_month = month
+        # append the annual mean to the yearly temperatures
+        annual_mean = df.loc[df["year"] == year, "annual_mean"].values[0]
+        if annual_mean != "***":
+            temperatures_yearly.append(float(annual_mean))
+
+    years = [int(x) for x in years]
 
     val = np.abs(temperatures).max()
+    val_yearly = np.abs(temperatures_yearly).max()
 
     # save to json
     data = [{
              "x": dates,
              "y": temperatures,
              "type": "bar",
+             "name": "Mensile",
              "marker": {
                  "color": temperatures,
                  "colorscale": "RdBu",
                  "cmin": -val,
                  "cmax": val
                }
-             }]
+             },
+            {
+                "x": years,
+                "y": temperatures_yearly,
+                "type": "bar",
+                "name": "Annuale",
+                "visible": "legendonly",
+                "marker": {
+                    "color": temperatures_yearly,
+                    "colorscale": "RdBu",
+                    "cmin": -val_yearly,
+                    "cmax": val_yearly
+                }
+            }
+            ]
 
     layout = {
                 "xaxis": {"tickformat": "%b %Y"},
@@ -57,7 +84,8 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, temperatures, "Anomalia temperatura", "global_temperature.json", symmetric_minmax=True)
+    save_stripes(dates, temperatures, "Anomalia temperatura globale (°C, 1951-1980)", "global_temperature.json", symmetric_minmax=True)
 
     # save overview data for overview factory
-    save_overview("global_temperature", "Anomalia Temperatura Globale", f"{temperatures[-1]:+.1f}°C", dates[-1])
+    month_locale = MONTHS_NAME[months.index(last_month)]
+    save_overview("global_temperature", f"Anomalia Temperatura Globale ({month_locale})", f"{temperatures[-1]:+.1f}°C", dates[-1])

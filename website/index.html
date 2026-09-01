@@ -38,6 +38,7 @@
         <section id="overview" class="dmu-19__section">
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Panoramica</h1>
+            <br><br>
 
           <div class="container">
             <script src="data/overview.js"></script>
@@ -65,6 +66,10 @@
               plot("data/era5_daily_anomaly.json", "era5_daily_anomaly");
             </script>
 
+            <div id="rank_months"></div>
+            <script>
+              plot("data/rank_months.json", "rank_months");
+            </script>
           </header>
         </section>
 
@@ -206,6 +211,11 @@
             <div id="stripes_co2_mlo"></div>
             <script>
                 plot("data/stripes_co2_mlo.json", "stripes_co2_mlo");
+            </script>
+
+            <div id="stripes_ch4_gl"></div>
+            <script>
+                plot("data/stripes_ch4_gl.json", "stripes_ch4_gl");
             </script>
 
             <div id="stripes_ocean_heat"></div>

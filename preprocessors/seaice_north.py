@@ -68,30 +68,19 @@ def preprocess():
     data.append({
         "x": [last_date],
         "y": [last_extent],
-        "text": [f"{last_date_text}<br>\n{last_extent:.1f}&#x2715;10<sup>6</sup> km<sup>2</sup>"],
         "type": "scatter",
-        "mode": "markers+text",
-        "textposition": "right",
+        "mode": "markers",
         "name": last_date_text,
-        "textfont": {
-            "family": "sans serif",
-            "size": 18,
-            "color": "#17becf"
-        },
         "marker": {"size": 10,
                    "color": "#17becf"}
     })
 
-
-
-
     layout = {
         "xaxis": {
-            "title": "Date",
             "tickformat": "%b",
         },
         "yaxis": {
-            "title": "Estensione Ghiaccio (10<sup>6</sup> km<sup>2</sup>)",
+            "title": {"text": "Estensione Ghiaccio (10<sup>6</sup> km<sup>2</sup>)"},
         },
         "title": {
             "text": "Estensione del ghiaccio marino artico",

@@ -92,4 +92,4 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save overview data for overview factory
-    save_overview("era5_ocean_anomaly", "Anomalia Temperatura Oceani (daily)", f"{last_temperature:+.1f}°C", last_date)
+    save_overview("era5_ocean_anomaly", f"Anomalia Temperatura Oceani ({last_date_ddmmyyyy})", f"{last_temperature:+.1f}°C", last_date)

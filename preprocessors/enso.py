@@ -2,14 +2,17 @@ import pandas as pd
 import json
 
 from preprocessors.overview_factory import save_overview
+from preprocessors.commons import MONTHS_NAME
 
 def preprocess():
     # YR  MON  NINO1+2  ANOM  NINO3  ANOM.1  NINO4  ANOM.2  NINO3.4  ANOM.3
     df = pd.read_csv("data/elnino.txt", comment='#', sep='\s+')
 
-
     dates = df['YR'].astype(str) + '-' + df['MON'].astype(str)
     dates = [str(x) for x in pd.to_datetime(dates, format='%Y-%m').tolist()]
+
+    last_month = df['MON'].tolist()[-1]
+    last_year = df['YR'].tolist()[-1]
 
     nino12 = [float(x) for x in df['ANOM'].tolist()]
     nino3 = [float(x) for x in df['ANOM.1'].tolist()]
@@ -92,4 +95,5 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save overview data for overview factory
-    save_overview("enso", "El Niño 3+4 ", f"{nino34[-1]:+.1f}°C", dates[-1])
+    month_name = MONTHS_NAME[last_month-1]
+    save_overview("enso", f"El Niño 3+4 ({month_name} {last_year})", f"{nino34[-1]:+.1f}°C", dates[-1])

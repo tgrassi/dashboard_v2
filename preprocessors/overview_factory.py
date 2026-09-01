@@ -1,3 +1,4 @@
+import os
 import json
 from glob import glob
 
@@ -43,7 +44,27 @@ def preprocess():
 
     js_script = "var script = document.currentScript;\n\n"
 
+    ids = ["global_temperature",
+           "era5_daily_anomaly",
+           "co2_mlo",
+           "era5_ocean_anomaly",
+           "med_ssta",
+           "sea_level",
+           "enso",
+           "ocean_heat",
+           "glaciers_mass"]
+
     for g in glob("data_overview/*.json"):
+        id = os.path.basename(g).replace(".json", "")
+        if id not in ids:
+            ids.append(id)
+
+    for id in ids:
+
+        g = f"data_overview/{id}.json"
+
+        if not os.path.exists(g):
+            continue
 
         print(f"OVERVIEW: Preprocessing {g}...")
 

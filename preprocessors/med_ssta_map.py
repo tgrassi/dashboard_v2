@@ -15,6 +15,9 @@ def preprocess():
     lons = [str(x) for x in list(ds.longitude.values)]
     sst_anomaly = ds.sst_anomaly.values.squeeze()
 
+    dtime = ds.time.values[0].astype('datetime64[D]').astype(str)
+    date_ddmmyyyy = "/".join(dtime.split("-")[::-1])
+
     ssta = [[str(y) for y in x] for x in sst_anomaly]
 
     sst_nan = sst_anomaly[~np.isnan(sst_anomaly)]
@@ -44,4 +47,4 @@ def preprocess():
     ssta_mean = np.nanmean(sst_anomaly)
 
     # save overview data for overview factory
-    save_overview("med_ssta", "Anomalia temperatura Mediterraneo", f"{ssta_mean:+.1f}°C", "")
+    save_overview("med_ssta", f"Anomalia Mediterraneo ({date_ddmmyyyy})", f"{ssta_mean:+.1f}°C", "")

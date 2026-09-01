@@ -93,4 +93,4 @@ def preprocess():
 
 
     # save overview data for overview factory
-    save_overview("era5_daily_anomaly", "Anomalia Temperatura Globale (daily)", f"{last_anomaly:+.1f}°C", last_date)
+    save_overview("era5_daily_anomaly", f"Anomalia Temperatura Globale ({last_date_ddmmyyyy})", f"{last_anomaly:+.1f}°C", last_date)
