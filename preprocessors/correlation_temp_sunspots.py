@@ -73,7 +73,7 @@ def preprocess():
     layout = {
         "xaxis": {"title": {"text": "Numero di macchie solari"}},
         "yaxis": {"title": {"text": "Anomalia di temperatura globale (°C)"}},
-        "title": {"text": "Mancata correlazione tra numero di macchie solari e anomalia di temperatura globale"},
+        "title": {"text": "C'è una correlazione tra l'attività solare e la temperatura globale? NO"},
         "showlegend": False,
              }
 

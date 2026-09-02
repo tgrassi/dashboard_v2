@@ -68,7 +68,7 @@ def preprocess():
     ]
 
     layout = {
-        "title": {"text": "Distribuzione delle anomalia della temperatura superficiale del Mediterraneo"},
+        "title": {"text": "Qual è la distribuzione dell'anomalia termica superficiale del Mediterraneo?"},
         "xaxis": {"title": {"text": "Anomalia della temperatura superficiale (°C)"}},
         "yaxis": {"title": {"text": "Densità di probabilità"}},
              }

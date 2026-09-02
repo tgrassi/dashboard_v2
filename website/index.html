@@ -53,9 +53,14 @@
           <header class="dmu-19__head">
             <h1 class="dmu-19__h1">Temperatura</h1>
 
-            <div id="global_temperature"></div>
+            <div id="global_temperature_monthly"></div>
             <script>
-              plot("data/global_temperature.json", "global_temperature");
+              plot("data/global_temperature_monthly.json", "global_temperature_monthly");
+            </script>
+
+            <div id="global_temperature_yearly"></div>
+            <script>
+              plot("data/global_temperature_yearly.json", "global_temperature_yearly");
             </script>
 
             <div id="era5_daily"></div>

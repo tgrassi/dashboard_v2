@@ -61,7 +61,7 @@ def preprocess():
     layout = {
                 "xaxis": {},
                 "yaxis": {"title": {"text": "Numero di giorni"}},
-                "title": {"text": f"Giorni all'anno con temperatura massima > {tmax_threshold}°C"},
+                "title": {"text": f"Quanti giorni all'anno hanno superato {tmax_threshold}°C?"},
              }
 
     # first layout so it is easier to debug in the json file

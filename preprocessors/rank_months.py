@@ -75,7 +75,7 @@ def preprocess():
              "zmax": 30,}]
 
     layout = {
-        "title": {"text": f"Classifica dei mesi più caldi a livello globale ({min(years)}-{max(years)})"},
+        "title": {"text": f"Quali sono stati i mesi più caldi a livello globale ({min(years)}-{max(years)})?"},
         "xaxis": {"dtick": 1, "tickangle": 90},
         "annotations": annotations,
              }

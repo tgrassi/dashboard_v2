@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE
 from preprocessors.stripes_factory import save_stripes
 from preprocessors.overview_factory import save_overview
 
@@ -25,7 +26,23 @@ def preprocess():
              "type": "scatter",
              "mode": "lines",
              "name": "Giornaliero",
+             "legendgroup": "daily",
+             "marker": {
+                 "color": PLOTLY_COLOR_SEQUENCE[0]
+             }
              },
+            {
+                "x": [dates_daily[-1]],
+                "y": [co2_daily[-1]],
+                "type": "scatter",
+                "mode": "markers",
+                "showlegend": False,
+                "marker": {
+                    "size": 10,
+                    "color": PLOTLY_COLOR_SEQUENCE[0]
+                },
+                "legendgroup": "daily"
+            },
 
              {
                  "x": dates_monthly,
@@ -33,12 +50,15 @@ def preprocess():
                  "type": "scatter",
                  "mode": "lines",
                  "name": "Media",
+                 "marker": {
+                     "color": PLOTLY_COLOR_SEQUENCE[1]
+                 }
              }]
 
     layout = {
                 "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Concentrazione di CO2 (ppm)"}},
-                "title": {"text": "Concentrazione di CO<sub>2</sub> Mauna Loa (Hawaii)"},
+                "title": {"text": "Come è cambiata la concentrazione di anidride carbonica (CO<sub>2</sub>) nel tempo?"},
              }
 
     # first layout so it is easier to debug in the json file

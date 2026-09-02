@@ -20,7 +20,7 @@ def preprocess():
     last_month = "-"
 
     dates = []
-    temperatures = []
+    temperatures_monthly = []
     temperatures_yearly = []
     for year in years:
         # loop on months columns
@@ -31,7 +31,7 @@ def preprocess():
                 # create a date string
                 date = f"{year}-{i+1:02d}-01"
                 dates.append(date)
-                temperatures.append(float(value))
+                temperatures_monthly.append(float(value))
                 last_month = month
         # append the annual mean to the yearly temperatures
         annual_mean = df.loc[df["year"] == year, "annual_mean"].values[0]
@@ -40,28 +40,35 @@ def preprocess():
 
     years = [int(x) for x in years]
 
-    val = np.abs(temperatures).max()
+    val_monthly = np.abs(temperatures_monthly).max()
     val_yearly = np.abs(temperatures_yearly).max()
 
     # save to json
-    data = [{
+    data_monthly = [{
              "x": dates,
-             "y": temperatures,
+             "y": temperatures_monthly,
              "type": "bar",
-             "name": "Mensile",
              "marker": {
-                 "color": temperatures,
+                 "color": temperatures_monthly,
                  "colorscale": "RdBu",
-                 "cmin": -val,
-                 "cmax": val
+                 "cmin": -val_monthly,
+                 "cmax": val_monthly
                }
-             },
+             }]
+
+    layout_monthly = {
+                "xaxis": {"tickformat": "%b %Y"},
+                "yaxis": {"title": {"text": "Anomalia temperatura (°C)"}},
+                "title": {"text": "Quanto si è scaldato il pianeta (media 1951-1980)?"}
+             }
+
+
+    data_yearly = [
             {
                 "x": years,
                 "y": temperatures_yearly,
-                "type": "bar",
-                "name": "Annuale",
-                "visible": "legendonly",
+                "type": "scatter",
+                "mode": "lines+markers",
                 "marker": {
                     "color": temperatures_yearly,
                     "colorscale": "RdBu",
@@ -71,21 +78,27 @@ def preprocess():
             }
             ]
 
-    layout = {
-                "xaxis": {"tickformat": "%b %Y"},
+    layout_yearly = {
+                "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Anomalia temperatura (°C)"}},
-                "title": {"text": "Anomalia temperatura globale (media 1951-1980)"}
+                "title": {"text": "Quanto si è scaldato il pianeta ogni anno (media 1951-1980)?"}
              }
 
-    # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
 
-    with open("website/data/global_temperature.json", "w") as f:
-        json.dump(bundle, f, indent=4)
+    # first layout so it is easier to debug in the json file
+    bundle_monthly = {"layout": layout_monthly, "data": data_monthly}
+
+    bundle_yearly = {"layout": layout_yearly, "data": data_yearly}
+
+    with open("website/data/global_temperature_monthly.json", "w") as f:
+        json.dump(bundle_monthly, f, indent=4)
+
+    with open("website/data/global_temperature_yearly.json", "w") as f:
+        json.dump(bundle_yearly, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, temperatures, "Anomalia temperatura globale (°C, 1951-1980)", "global_temperature.json", symmetric_minmax=True)
+    save_stripes(dates, temperatures_monthly, "Anomalia temperatura globale (°C, 1951-1980)", "global_temperature.json", symmetric_minmax=True)
 
     # save overview data for overview factory
     month_locale = MONTHS_NAME[months.index(last_month)]
-    save_overview("global_temperature", f"Anomalia Temperatura Globale ({month_locale})", f"{temperatures[-1]:+.1f}°C", dates[-1])
+    save_overview("global_temperature", f"Anomalia Temperatura Globale ({month_locale})", f"{temperatures_monthly[-1]:+.1f}°C", dates[-1])

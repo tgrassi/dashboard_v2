@@ -14,3 +14,8 @@ PLOTLY_COLOR_SEQUENCE = [
 MONTHS_NAME = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
 
 MONTHS_NAME_SHORT = [x[:3] for x in MONTHS_NAME]
+
+
+
+def show_last_marker(xvalues, marker_size):
+    return [marker_size - 5 if i == len(xvalues) - 1 else 0 for i in range(len(xvalues))]

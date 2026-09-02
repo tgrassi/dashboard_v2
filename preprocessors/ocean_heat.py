@@ -41,7 +41,7 @@ def preprocess():
     layout = {
                 "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Calore oceani (10<sup>22</sup> Joules)"}},
-                "title": {"text": "Calore oceani (0-700m)"}
+                "title": {"text": "Quanto calore hanno assorbito gli oceani (0-700m)?"}
              }
 
     # first layout so it is easier to debug in the json file

@@ -31,7 +31,7 @@ def preprocess():
     layout = {
                 "xaxis": {"title": {"text": "Anni fa"}, "autorange": "reversed"},
                 "yaxis": {"title": {"text": "Concentrazione di CO2 (ppm)"}},
-                "title": {"text": "Concentrazione di CO2 negli ultimi 800.000 anni"},
+                "title": {"text": "Qual è stata la concentrazione di CO2 negli ultimi 800.000 anni?"},
              }
 
     # first layout so it is easier to debug in the json file

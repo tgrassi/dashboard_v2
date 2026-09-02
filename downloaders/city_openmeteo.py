@@ -71,6 +71,8 @@ def download():
             continue
 
 
+        print(f"Downloading Open-Meteo data for {city} from {start_date} to {end_date}...")
+
         df = download_openmeteo(
             latitude=coords["latitude"],
             longitude=coords["longitude"],

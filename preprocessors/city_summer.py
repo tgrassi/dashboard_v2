@@ -61,7 +61,7 @@ def preprocess():
     layout = {
                 "xaxis": {},
                 "yaxis": {"title": {"text": "Temperatura massima media (°C)"}},
-                "title": {"text": "Media delle temperature massime giornaliere estive (giugno-agosto) per città"},
+                "title": {"text": "Qual è stata la temperatura estiva per ogni città?"},
              }
 
     # first layout so it is easier to debug in the json file

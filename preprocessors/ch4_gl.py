@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from preprocessors.overview_factory import save_overview
-from preprocessors.commons import MONTHS_NAME
+from preprocessors.commons import MONTHS_NAME, PLOTLY_COLOR_SEQUENCE
 from preprocessors.stripes_factory import save_stripes
 
 def preprocess():
@@ -21,8 +21,24 @@ def preprocess():
              "y": ch4_average,
              "type": "scatter",
              "mode": "lines",
-             "name": "Media",
+             "name": "Dati",
+             "marker": {
+                 "color": PLOTLY_COLOR_SEQUENCE[0]
+                },
+             "legendgroup": "average"
              },
+            {
+                "x": [dates[-1]],
+                "y": [ch4_average[-1]],
+                "type": "scatter",
+                "mode": "markers",
+                "showlegend": False,
+                "marker": {
+                    "size": 10,
+                    "color": PLOTLY_COLOR_SEQUENCE[0]
+                },
+                "legendgroup": "average"
+            },
 
              {
                  "x": dates,
@@ -30,12 +46,15 @@ def preprocess():
                  "type": "scatter",
                  "mode": "lines",
                  "name": "Trend",
+                 "marker": {
+                     "color": PLOTLY_COLOR_SEQUENCE[1]
+                 }
              }]
 
     layout = {
                 "xaxis": {"tickformat": "%Y"},
-                "yaxis": {"title": {"text": "Concentrazione di CH4 (ppm)"}},
-                "title": {"text": "Concentrazione di CH<sub>4</sub>"},
+                "yaxis": {"title": {"text": "Concentrazione di CH4 (ppb)"}},
+                "title": {"text": "Come è cambiata la concentrazione di metano (CH<sub>4</sub>) nel tempo?"},
              }
 
     # first layout so it is easier to debug in the json file
@@ -45,7 +64,7 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(dates, ch4_average, "Concentrazione di CH4 (ppm)", "ch4_gl.json", symmetric_minmax=False)
+    save_stripes(dates, ch4_average, "Concentrazione di CH4 (ppb)", "ch4_gl.json", symmetric_minmax=False)
 
     # save overview data for overview factory
-    save_overview("ch4_gl", f"Concentrazione di CH4 (ppb, {last_month} {last_year})", f"{ch4_average[-1]:.1f}", dates[-1])
+    save_overview("ch4_gl", f"Concentrazione di metano (ppb, {last_month} {last_year})", f"{ch4_average[-1]:.1f}", dates[-1])

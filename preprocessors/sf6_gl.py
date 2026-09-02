@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE
 
 def preprocess():
 
@@ -16,8 +17,23 @@ def preprocess():
              "y": sf6_average,
              "type": "scatter",
              "mode": "lines",
-             "name": "Media",
+             "name": "Dati",
+             "marker": {
+                 "color": PLOTLY_COLOR_SEQUENCE[0]
              },
+                "legendgroup": "average"
+             },
+            {"x": [dates[-1]],
+             "y": [sf6_average[-1]],
+             "type": "scatter",
+             "mode": "markers",
+             "showlegend": False,
+             "marker": {
+                 "size": 10,
+                 "color": PLOTLY_COLOR_SEQUENCE[0]
+             },
+             "legendgroup": "average"
+            },
 
              {
                  "x": dates,
@@ -25,12 +41,15 @@ def preprocess():
                  "type": "scatter",
                  "mode": "lines",
                  "name": "Trend",
+                 "marker": {
+                     "color": PLOTLY_COLOR_SEQUENCE[1]
+                 }
              }]
 
     layout = {
                 "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Concentrazione di SF6 (ppm)"}},
-                "title": {"text": "Concentrazione di SF<sub>6</sub>"},
+                "title": {"text": "Come è cambiata la concentrazione di SF<sub>6</sub> nel tempo?"},
              }
 
     # first layout so it is easier to debug in the json file

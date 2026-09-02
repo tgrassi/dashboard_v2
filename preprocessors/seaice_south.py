@@ -84,7 +84,7 @@ def preprocess():
             "title": {"text": "Estensione Ghiaccio (10<sup>6</sup> km<sup>2</sup>)"},
         },
         "title": {
-            "text": "Estensione del ghiaccio marino antartico",
+            "text": "Qual è l'estensione del ghiaccio marino antartico?",
         }
     }
 

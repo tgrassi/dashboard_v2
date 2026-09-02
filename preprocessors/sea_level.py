@@ -19,32 +19,26 @@ def preprocess():
              "y": sea_level,
              "type": "scatter",
              "mode": "lines",
+             "color": "#1f77b4",
              },
 
             {
                 "x": [dates[-1]],
                 "y": [sea_level[-1]],
-                "text": [f"{dates[-1]:.0f}<br>{sea_level[-1]:.1f} mm"],
                 "type": "scatter",
-                "mode": "markers+text",
+                "mode": "markers",
                 "marker": {
-                    "color": "#17becf",
+                    "color": "#1f77b4",
                     "size": 10
-                },
-                "textposition": "right",
-                "textfont": {
-                    "family": "sans serif",
-                    "size": 18,
-                    "color": "#17becf"
                 }
             }
 
              ]
 
     layout = {
-                "xaxis": {"tickformat": "%Y", "range": [dates[0], float(dates[-1])+7]},
+                "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Livello degli oceani (mm)"}},
-                "title": {"text": "Variazione del livello degli oceani rispetto al 2000 (mm)"},
+                "title": {"text": "Di quanto si è alzato il livello degli oceani?"},
                 "showlegend": False,
              }
 

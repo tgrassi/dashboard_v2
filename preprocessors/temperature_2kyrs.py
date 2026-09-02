@@ -32,7 +32,7 @@ def preprocess():
     layout = {
                 "xaxis": {},
                 "yaxis": {"title": {"text": "Temperatura (°C)"}},
-                "title": {"text": "Temperatura ultimi 2000 anni"},
+                "title": {"text": "Quanto si è scaldato il pianeta negli ultimi 2000 anni?"},
              }
 
     # first layout so it is easier to debug in the json file

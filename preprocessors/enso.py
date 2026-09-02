@@ -85,7 +85,7 @@ def preprocess():
     layout = {
                 "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Anomalia di temperatura (°C)"}},
-                "title": {"text": "Indici di El Niño"},
+                "title": {"text": "Qual è l'anomalia di temperatura delle regioni El Niño?"},
              }
 
     # first layout so it is easier to debug in the json file

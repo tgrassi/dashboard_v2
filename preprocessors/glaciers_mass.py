@@ -19,32 +19,13 @@ def preprocess():
              "y": mass_balance,
              "type": "scatter",
              "mode": "lines+markers",
-             },
-
-            {
-                "x": [dates[-1]],
-                "y": [mass_balance[-1]],
-                "text": [f"{dates[-1]}<br>{mass_balance[-1] / 1e3:.1f} Tt"],
-                "type": "scatter",
-                "mode": "markers+text",
-                "marker": {
-                    "color": "#17becf",
-                    "size": 10
-                },
-                "textposition": "right",
-                "textfont": {
-                    "family": "sans serif",
-                    "size": 18,
-                    "color": "#17becf"
-                }
-            }
-
+             }
              ]
 
     layout = {
-                "xaxis": {"tickformat": "%Y", "range": [dates[0], int(dates[-1])+20]},
+                "xaxis": {"tickformat": "%Y"},
                 "yaxis": {"title": {"text": "Bilancio di massa dei ghiacciai (Gt)"}},
-                "title": {"text": "Bilancio di massa dei ghiacciai rispetto al 1970 (Gt)"},
+                "title": {"text": "Quanta massa hanno perso i ghiacciai rispetto al 1970?"},
                 "showlegend": False,
              }
 

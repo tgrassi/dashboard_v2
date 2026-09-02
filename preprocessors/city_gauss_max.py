@@ -80,7 +80,7 @@ def preprocess():
     layout = {
                 "xaxis": {"tickformat": "%d %b", "title": {"text": "Temperatura massima giornaliera (°C)"}},
                 "yaxis": {"title": {"text": "Probabilità"}},
-                "title": {"text": f"Probabilità di temperatura massima giornaliera ({month_name}, media {year_avg_min}-{year_avg_max})"},
+                "title": {"text": f"Quanto è probabile la temperatura massima di oggi a {month_name}?"},
              }
 
     # first layout so it is easier to debug in the json file

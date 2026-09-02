@@ -80,7 +80,7 @@ def preprocess():
     layout = {
                 "xaxis": {"tickformat": "%b"},
                 "yaxis": {"title": {"text": "Temperatura (°C)"}},
-                "title": {"text": "Temperatura giornaliera oceani (60°N-60°S)"}
+                "title": {"text": "Qual è la temperatura giornaliera degli oceani (60°N-60°S)?"}
              }
 
     # first layout so it is easier to debug in the json file
