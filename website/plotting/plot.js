@@ -5,17 +5,31 @@
 // the theme is a global variable defined in website/plotting/plotly_theme.js
 function plot(data_json, id, style=null){
 
-    var element = document.getElementById(id);
+    // create a div child of the div with id=id
+    var parent = document.getElementById(id);
+    var child_plot = document.createElement("div");
+    child_plot.setAttribute("id", id + "_plot");
+
+    parent.appendChild(child_plot);
+
+    var child_button = document.createElement("button");
+    var child_button_id = id + "_button";
+    child_button.setAttribute("id", child_button_id);
+    child_button.innerHTML = "...";
+    child_button.setAttribute("class", "button");
+
+    parent.appendChild(child_button);
+
+
     if (style != null){
-        element.setAttribute("style", style);
+        child_plot.setAttribute("style", style);
     }else{
-        element.setAttribute("style", "width: 800px; height: 600;");
+        child_plot.setAttribute("style", "width: 800px; height: 600;");
     }
 
     fetch(data_json)
         .then(response => response.json())
         .then(bundle => {
-            //var element = document.getElementById(id);
 
             var data = bundle.data;
 
@@ -23,6 +37,22 @@ function plot(data_json, id, style=null){
             layout.template = dashboardTheme;
 
             var config = {locale: 'it'};
-            Plotly.newPlot(element, data, layout, config);
+            Plotly.newPlot(child_plot, data, layout, config);
+
+            if(bundle.hasOwnProperty("text_content")){
+                var text_content = bundle.text_content;
+                child_button.setAttribute("onclick", "toggleDescription('" + text_content + "', '" + child_button_id + "')");
+            }else{
+                child_button.remove();
+            }
         });
+
+}
+
+
+function toggleDescription(text_content, button_id){
+    const button = document.getElementById(button_id);
+    button.classList.toggle("expanded");
+    button.classList.toggle("collapsed");
+    button.innerHTML = button.classList.contains("expanded") ? text_content : "...";
 }

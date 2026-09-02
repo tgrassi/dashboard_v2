@@ -1,3 +1,5 @@
+import os
+
 PLOTLY_COLOR_SEQUENCE = [
     '#1f77b4',  # muted blue
     '#ff7f0e',  # safety orange
@@ -15,7 +17,16 @@ MONTHS_NAME = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Lu
 
 MONTHS_NAME_SHORT = [x[:3] for x in MONTHS_NAME]
 
+def get_info(filename):
 
+    if not filename.endswith(".txt"):
+        filename = filename + ".txt"
+    filename = os.path.join("info", filename)
 
-def show_last_marker(xvalues, marker_size):
-    return [marker_size - 5 if i == len(xvalues) - 1 else 0 for i in range(len(xvalues))]
+    if not os.path.exists(filename):
+        return "Nessuna informazione disponibile."
+
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+    lines = [line.strip() for line in lines if not line.startswith("#")]
+    return " ".join(lines)

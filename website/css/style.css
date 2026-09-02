@@ -382,3 +382,28 @@ html, body {
         margin-left: 0;
     }
 }
+
+/* Toggle description of plots */
+.description-text.collapsed {
+    overflow: hidden;
+    max-height: 0px;
+}
+
+.description-text.expanded {
+    max-height: 1000px;
+}
+
+
+/* button style */
+.button {
+    background-color: #222425;
+    color: #eceef1;
+    border: 0px solid #212530;
+    padding: .1rem 1rem;
+    width: 800px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    text-align: left;
+    font-size: 0.85rem;
+}
