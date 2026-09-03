@@ -23,6 +23,8 @@ from preprocessors import (ghg_ch4, ghg_co2_mlo, ghg_n2o, ghg_sf6,
                            correlation_temp_co2,
                            correlation_temp_sunspots,
                            city_summer,
+                           ocean_acidity,
+                           city_stripes,
                            stripes_factory,
                            overview_factory
                            )
@@ -48,6 +50,8 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            city_stripes,
+            ocean_acidity,
             city_summer,
             correlation_temp_sunspots,
             correlation_temp_co2,

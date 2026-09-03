@@ -10,7 +10,8 @@ from downloaders import (ghg_mlo,
                          seaice_south,
                          glaciers_mass,
                          sea_level,
-                         city_openmeteo
+                         city_openmeteo,
+                         ocean_acidity
                          )
 from downloaders.commons import DATA_FOLDER
 
@@ -19,6 +20,7 @@ if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
 
 modules = [
+        ocean_acidity,
         city_openmeteo,
         glaciers_mass,
         sea_level,

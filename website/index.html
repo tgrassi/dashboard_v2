@@ -154,6 +154,11 @@
               plot("data/sea_level.json", "sea_level");
             </script>
 
+            <div id="ocean_acidity"></div>
+            <script>
+              plot("data/ocean_acidity.json", "ocean_acidity");
+            </script>
+
           </header>
         </section>
 
@@ -209,7 +214,6 @@
         </section>
 
 
-
         <!---------- Stripes --------->
         <section id="stripes" class="dmu-19__section">
           <header class="dmu-19__head">
@@ -245,9 +249,34 @@
                 plot("data/stripes_sea_level.json", "stripes_sea_level");
             </script>
 
+            <div id="stripes_ocean_acidity"></div>
+            <script>
+                plot("data/stripes_ocean_acidity.json", "stripes_ocean_acidity");
+            </script>
+
             <div id="stripes_temperature_2kyrs"></div>
             <script>
                 plot("data/stripes_temperature_2kyrs.json", "stripes_temperature_2kyrs");
+            </script>
+
+          </header>
+        </section>
+
+        <!---------- Stripes cities --------->
+        <section id="city_stripes" class="dmu-19__section">
+          <header class="dmu-19__head">
+            <h1 class="dmu-19__h1">Climate Stripes - Città</h1>
+
+            <script>
+                const cities = ["bologna", "cagliari", "firenze", "genova", "milano", "napoli", "palermo", "roma", "torino", "venezia"];
+                cities.forEach(city => {
+                    const divId = `stripes_city_${city}`;
+                    const div = document.createElement("div");
+                    div.id = divId;
+                    var script = document.currentScript;
+                    script.parentNode.appendChild(div);
+                    plot(`data/stripes_city_${city}.json`, divId);
+                });
             </script>
 
           </header>

@@ -39,6 +39,7 @@ def preprocess():
                 "type": "bar",
                 "name": city.title(),
                 "visible": visible,
+                "legendgroup": f"city_{city}",
                 })
 
         # compute moving average of tmin_days
@@ -53,8 +54,9 @@ def preprocess():
                 "x": years,
                 "y": tmin_days_ma,
                 "type": "line",
-                "name": f"{city.title()} (media)",
                 "visible": visible,
+                "legendgroup": f"city_{city}",
+                "showlegend": False,
                 })
 
     layout = {

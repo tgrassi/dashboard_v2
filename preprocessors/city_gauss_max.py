@@ -61,6 +61,7 @@ def preprocess():
                     "color": PLOTLY_COLOR_SEQUENCE[i % len(PLOTLY_COLOR_SEQUENCE)],
                 },
                 "visible": visible,
+                "legendgroup": f"city_{city}",
                 })
 
 
@@ -69,18 +70,23 @@ def preprocess():
                 "x": [last_tmax, last_tmax],
                 "y": [0, max(yy)],
                 "type": "line",
+                "mode": "lines",
                 "name": f"{last_date_text} {city.title()}",
                 "line": {
                     "color": PLOTLY_COLOR_SEQUENCE[i % len(PLOTLY_COLOR_SEQUENCE)],
+                    "dash": "dash",
+                    "width": 4,
                 },
                 "visible": visible,
+                "legendgroup": f"city_{city}",
+                "showlegend": False,
                 })
 
     month_name = MONTHS_NAME[int(this_month) - 1]
     layout = {
                 "xaxis": {"tickformat": "%d %b", "title": {"text": "Temperatura massima giornaliera (°C)"}},
                 "yaxis": {"title": {"text": "Probabilità"}},
-                "title": {"text": f"Quanto è probabile la temperatura massima di oggi a {month_name}?"},
+                "title": {"text": f"Quanto è probabile la temperatura massima di {last_date_text} a {month_name}?"},
              }
 
     # first layout so it is easier to debug in the json file
