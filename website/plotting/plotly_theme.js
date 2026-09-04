@@ -12,6 +12,13 @@ const dashboardTheme = {
         yaxis: {
             gridcolor: "#212530"
         },
+        title: {
+            font: {
+                automargin: false,
+                size: 22,
+                color: "#eceef1"
+            }
+        },
         annotations: [
             {
                 name: "watermark",

@@ -69,7 +69,7 @@ def preprocess():
         layout = {
                     "xaxis": {"tickformat": "%Y"},
                     "yaxis": {"visible": False},
-                    "title": {"text": f"Anomalia della temperatura massima mensile di {city.title()} rispetto alla media {year_avg_min}-{year_avg_max}"}
+                    "title": {"text": f"{city.title()}: Anomalia temperatura massima mensile rispetto alla media {year_avg_min}-{year_avg_max}"}
                 }
 
         # first layout so it is easier to debug in the json file

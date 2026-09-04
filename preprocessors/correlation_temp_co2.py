@@ -71,7 +71,7 @@ def preprocess():
     layout = {
         "xaxis": {"title": {"text": "Log2 della Concentrazione di CO2 (ppm)"}},
         "yaxis": {"title": {"text": "Anomalia di temperatura globale (°C)"}},
-        "title": {"text": "C'è una correlazione tra la concentrazione di CO2 e la temperatura globale? SI"},
+        "title": {"text": "C'è una correlazione tra concentrazione di CO2 e temperatura globale? SI"},
         "showlegend": False,
         "annotations": [
             {

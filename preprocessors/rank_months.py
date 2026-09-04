@@ -74,8 +74,9 @@ def preprocess():
              "zmin": 1,
              "zmax": 30,}]
 
+    diff_years = max(years) - min(years) + 1
     layout = {
-        "title": {"text": f"Quali sono stati i mesi più caldi a livello globale ({min(years)}-{max(years)})?"},
+        "title": {"text": f"Quali i mesi più caldi a livello globale negli ultimi {diff_years} anni?"},
         "xaxis": {"dtick": 1, "tickangle": 90},
         "annotations": annotations,
              }
