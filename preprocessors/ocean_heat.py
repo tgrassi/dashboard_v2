@@ -55,4 +55,4 @@ def preprocess():
 
     # save overview data for overview factory
     month_name = MONTHS_NAME[last_month-1]
-    save_overview("ocean_heat", f"Calore Oceani ({month_name} {last_year})", f"{heat[-1]:+.1f}", dates[-1])
+    save_overview("ocean_heat", f"Calore Oceani (10²²J, {month_name} {last_year})", f"{heat[-1]:+.1f}", dates[-1])

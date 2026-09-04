@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 from tqdm import tqdm
-import matplotlib.pyplot as plt
+from preprocessors.overview_factory import save_overview
 
 def preprocess():
 
@@ -17,7 +17,7 @@ def preprocess():
     freezing_heights = []
 
     months = {i: [] for i in range(1, 13)}
-    current_year = 2025 # np.datetime64("today").astype(object).year
+    current_year = np.datetime64("today").astype(object).year
 
     for row in tqdm(rows):
         srow = row.strip()
@@ -73,6 +73,7 @@ def preprocess():
 
     dates = [str(x) for x in dates]
     anomalies = [float(x) for x in anomalies]
+    heights = [float(x) for x in freezing_heights]
 
     val = np.abs(anomalies).max()
 
@@ -86,20 +87,34 @@ def preprocess():
                  "colorscale": "RdBu",
                  "cmin": -val,
                  "cmax": val
-               }
-             }]
+               },
+               "name": "Anomalia"
+             },
+             {
+             "x": dates,
+             "y": heights,
+             "type": "scatter",
+             "mode": "lines+markers",
+             "visible": "legendonly",
+             "name": "Quota"
+             }
+
+             ]
 
     layout = {
                 "xaxis": {"tickformat": "%d %b %Y",
                           "angle": 90,
                           "range": [str(np.datetime64(f"{current_year}-01-01")), str(np.datetime64(f"{current_year}-12-31"))]},
-                "yaxis": {"title": {"text": "Anomalia quota (m)"}},
-                "title": {"text": "Quale la differenza tra quota di congelamento e media mensile?"}
+                "yaxis": {"title": {"text": "Quota (m)"}},
+                "title": {"text": "Qual è la quota di congelamento (Payerne, Svizzera)?"}
              }
 
     # first layout so it is easier to debug in the json file
     bundle = {"layout": layout, "data": data}
 
-
     with open("website/data/radiosonde.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    date_ddmmyyyy = "/".join(dates[-1].split("-")[::-1])
+    # save overview data for overview factory
+    save_overview("radiosonde", f"Anomalia zero termico (m, {date_ddmmyyyy})", f"{anomalies[-1]:+.0f}", dates[-1])
