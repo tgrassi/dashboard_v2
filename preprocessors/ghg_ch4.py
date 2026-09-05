@@ -60,7 +60,8 @@ def preprocess():
     # first layout so it is easier to debug in the json file
     bundle = {"layout": layout,
               "data": data,
-              "text_content": get_info("ghg_ch4")}
+              #"text_content": get_info("ghg_ch4")
+              }
 
     with open("website/data/ch4_gl.json", "w") as f:
         json.dump(bundle, f, indent=4)
