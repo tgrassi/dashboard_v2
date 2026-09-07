@@ -8,7 +8,9 @@ def preprocess():
 
     # year,month,decimal,average,average_unc,trend,trend_unc
     df = pd.read_csv("data/ch4_mm_gl.csv", comment='#')
-    dates = df['decimal'].tolist()
+    years = df['year'].tolist()
+    months = df['month'].tolist()
+    dates = [f"{y}-{m:02d}-01" for y, m in zip(years, months)]
     ch4_average = df['average'].tolist()
     ch4_trend = df['trend'].tolist()
 
@@ -52,7 +54,22 @@ def preprocess():
              }]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                  "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }
+            ],
+                },
                 "yaxis": {"title": {"text": "Concentrazione di CH4 (ppb)"}},
                 "title": {"text": "Come è cambiata la concentrazione di metano (CH<sub>4</sub>) nel tempo?"},
              }

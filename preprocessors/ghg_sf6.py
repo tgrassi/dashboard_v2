@@ -6,7 +6,9 @@ def preprocess():
 
     # year,month,decimal,average,average_unc,trend,trend_unc
     df = pd.read_csv("data/sf6_mm_gl.csv", comment='#')
-    dates = df['decimal'].tolist()
+    years = df['year'].tolist()
+    months = df['month'].tolist()
+    dates = [f"{y}-{m:02d}-01" for y, m in zip(years, months)]
     sf6_average = df['average'].tolist()
     sf6_trend = df['trend'].tolist()
 
@@ -47,7 +49,22 @@ def preprocess():
              }]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                  "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }
+            ],
+                },
                 "yaxis": {"title": {"text": "Concentrazione di SF6 (ppm)"}},
                 "title": {"text": "Come è cambiata la concentrazione di SF<sub>6</sub> nel tempo?"},
              }

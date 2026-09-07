@@ -47,7 +47,8 @@ def preprocess():
             "type": "line",
             "name": year,
             "visible": visible,
-            "line": line
+            "line": line,
+            "legendgroup": year
         })
 
     # add the last point of the last year as scatter point (so that it is visible in the legend)
@@ -66,21 +67,38 @@ def preprocess():
     data.append({
         "x": [last_date],
         "y": [last_anomaly],
-        "text": [f"{last_date_ddmmyyyy}<br>\n{last_anomaly:+.1f} °C"],
+        # "text": [f"{last_date_ddmmyyyy}<br>\n{last_anomaly:+.1f} °C"],
         "type": "scatter",
         "name": last_year,
-        "mode": "markers+text",
-        "textposition": "right",
-        "textfont": {
-            "family": "sans serif",
-            "size": 18,
-            "color": "red"
-        },
+        "legendgroup": last_year,
+        "mode": "markers",
+        "showlegend": False,
+        # "textposition": "right",
+        # "textfont": {
+        #     "family": "sans serif",
+        #     "size": 18,
+        #     "color": "red"
+        # },
         "marker": {"size": 10, "color": "red"}
     })
 
     layout = {
-                "xaxis": {"tickformat": "%b"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%b'
+                    }]
+
+                },
                 "yaxis": {"title": {"text": "Anomalia di Temperatura (°C)"}},
                 "title": {"text": "Quale è l'anomalia di temperatura del pianeta (rispetto al 1991-2020)?"}
              }

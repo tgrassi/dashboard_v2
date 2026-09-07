@@ -83,7 +83,21 @@ def preprocess():
 ]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }]
+                },
                 "yaxis": {"title": {"text": "Anomalia di temperatura (°C)"}},
                 "title": {"text": "Qual è l'anomalia di temperatura delle regioni El Niño?"},
              }

@@ -5,12 +5,16 @@ from preprocessors.overview_factory import save_overview
 from preprocessors.stripes_factory import save_stripes
 from preprocessors.commons import MONTHS_NAME
 
+
 def preprocess():
 
 
     dates, sea_level = np.loadtxt("data/sea_level.txt", comments="#").T
 
-    dates = [float(x) for x in dates]
+    years = [int(x) for x in dates]
+    months = [int((x - int(x)) * 12) + 1 for x in dates]
+
+    dates = [f"{y}-{m:02d}-01" for y, m in zip(years, months)]
     sea_level = [float(x) for x in sea_level]
 
     # save to json
@@ -36,7 +40,21 @@ def preprocess():
              ]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }]
+                },
                 "yaxis": {"title": {"text": "Livello degli oceani (mm)"}},
                 "title": {"text": "Di quanto si è alzato il livello degli oceani?"},
                 "showlegend": False,
@@ -52,8 +70,8 @@ def preprocess():
     save_stripes(dates, sea_level, "Livello oceani (mm)", "sea_level.json", symmetric_minmax=False)
 
     # save overview data for overview factory
-    year = int(dates[-1])
-    month_decimal = float(dates[-1]) - year
-    month_name = MONTHS_NAME[int(month_decimal * 12)]
+    year = int(dates[-1][:4])
+    month = int(dates[-1][5:7])
+    month_name = MONTHS_NAME[month - 1]
     date_mmyyyy = f"{month_name} {year}"
     save_overview("sea_level", f"Livello oceani (mm, {date_mmyyyy})", f"{sea_level[-1]:+.1f}", dates[-1])

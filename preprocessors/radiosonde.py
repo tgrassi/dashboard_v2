@@ -33,7 +33,7 @@ def preprocess():
             temperature = []
             continue
 
-        if hour != 12:
+        if hour not in [10, 11, 12, 13]:
             continue
 
         arow = srow.split()
@@ -102,7 +102,20 @@ def preprocess():
              ]
 
     layout = {
-                "xaxis": {"tickformat": "%d %b %Y",
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%b'
+                    }],
                           "angle": 90,
                           "range": [str(np.datetime64(f"{current_year}-01-01")), str(np.datetime64(f"{current_year}-12-31"))]},
                 "yaxis": {"title": {"text": "Quota (m)"}},

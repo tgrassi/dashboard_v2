@@ -77,7 +77,19 @@ def preprocess():
 
     layout = {
         "xaxis": {
-            "tickformat": "%b",
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%b'
+                    }]
         },
         "yaxis": {
             "title": {"text": "Estensione Ghiaccio (10<sup>6</sup> km<sup>2</sup>)"},

@@ -8,14 +8,21 @@ def preprocess():
 
     #co2_daily_mlo.csv
     df = pd.read_csv("data/co2_daily_mlo.csv", comment='#', names=["year", "month", "day", "decimal_date", "co2"])
-    dates_daily = df['decimal_date'].tolist()
+    years_daily = df['year'].tolist()
+    months_daily = df['month'].tolist()
+    days_daily = df['day'].tolist()
+    dates_daily = [f"{y}-{m:02d}-{d:02d}" for y, m, d in zip(years_daily, months_daily, days_daily)]
+    #dates_decimal_daily = df['decimal_date'].tolist()
     co2_daily = df['co2'].tolist()
 
     last_date_ddmmyyyy = str(df["day"].tolist()[-1]) + "/" + str(df["month"].tolist()[-1]) + "/" + str(df["year"].tolist()[-1])
 
     # year,month,decimal date,average,deseasonalized,ndays,sdev,unc
     df = pd.read_csv("data/co2_mm_mlo.csv", comment='#')
-    dates_monthly = df['decimal date'].tolist()
+    years_monthly = df['year'].tolist()
+    months_monthly = df['month'].tolist()
+    dates_monthly = [f"{y}-{m:02d}-01" for y, m in zip(years_monthly, months_monthly)]
+    #dates_decimal_monthly =
     co2_monthly = df['deseasonalized'].tolist()
 
 
@@ -56,7 +63,22 @@ def preprocess():
              }]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+               "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }
+            ],
+            },
                 "yaxis": {"title": {"text": "Concentrazione di CO2 (ppm)"}},
                 "title": {"text": "Come è cambiata la concentrazione di anidride carbonica (CO<sub>2</sub>) nel tempo?"},
              }

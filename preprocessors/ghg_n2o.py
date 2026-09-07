@@ -6,7 +6,9 @@ def preprocess():
 
     # year,month,decimal,average,average_unc,trend,trend_unc
     df = pd.read_csv("data/n2o_mm_gl.csv", comment='#')
-    dates = df['decimal'].tolist()
+    years = df['year'].tolist()
+    months = df['month'].tolist()
+    dates = [f"{y}-{m:02d}-01" for y, m in zip(years, months)]
     n2o_average = df['average'].tolist()
     n2o_trend = df['trend'].tolist()
 
@@ -46,7 +48,22 @@ def preprocess():
              }]
 
     layout = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                  "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }
+            ],
+                },
                 "yaxis": {"title": {"text": "Concentrazione di N2O (ppm)"}},
                 "title": {"text": "Come è cambiata la concentrazione di N<sub>2</sub>O?"},
              }

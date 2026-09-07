@@ -72,10 +72,23 @@ def preprocess():
 
 
     layout = {
-                "xaxis": {"tickformat": "%b",
-                          "range": [f"{last_year}-01-01", f"{last_year}-12-31"],
-                          "title": {"text": int(last_year)},
-                          },
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%b'
+                    }],
+                        "range": [f"{last_year}-01-01", f"{last_year}-12-31"],
+                        "title": {"text": int(last_year)},
+                        },
                 "yaxis": {"title": {"text": "Differenza di temperatura (°C)"}},
                 "title": {"text": f"Nel <b>{last_year}</b> quali giorni hanno avuto temperature anomale?"},
              }

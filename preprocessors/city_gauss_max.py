@@ -41,7 +41,10 @@ def preprocess():
         mean = avg.mean()
         std = avg.std()
 
-        xx = np.linspace(avg.min(), avg.max(), 100)
+        xmin = min(avg.min(), last_tmax) - 1
+        xmax = max(avg.max(), last_tmax) + 1
+
+        xx = np.linspace(xmin, xmax, 100)
         yy = np.exp(-0.5 * ((xx - mean)/std)**2) / (std * np.sqrt(2 * np.pi))
 
         xx = [float(x) for x in xx]

@@ -78,7 +78,21 @@ def preprocess():
     })
 
     layout = {
-                "xaxis": {"tickformat": "%b"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%d %b'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%b'
+                    }]
+                },
                 "yaxis": {"title": {"text": "Temperatura (°C)"}},
                 "title": {"text": "Qual è la temperatura giornaliera degli oceani (60°N-60°S)?"}
              }
