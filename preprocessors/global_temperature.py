@@ -57,7 +57,21 @@ def preprocess():
              }]
 
     layout_monthly = {
-                "xaxis": {"tickformat": "%b %Y"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }]
+                },
                 "yaxis": {"title": {"text": "Anomalia temperatura (°C)"}},
                 "title": {"text": "Quanto si è scaldato il pianeta (media 1951-1980)?"}
              }
@@ -79,7 +93,21 @@ def preprocess():
             ]
 
     layout_yearly = {
-                "xaxis": {"tickformat": "%Y"},
+                "xaxis": {
+                    "tickformatstops": [
+                    {
+                    "dtickrange": ["null", 'M1'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M1', 'M12'],
+                    "value": '%b %Y'
+                    },
+                    {
+                    "dtickrange": ['M12', "null"],
+                    "value": '%Y'
+                    }]
+                },
                 "yaxis": {"title": {"text": "Anomalia temperatura (°C)"}},
                 "title": {"text": "Quanto si è scaldato il pianeta ogni anno (media 1951-1980)?"}
              }

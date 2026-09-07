@@ -5,6 +5,9 @@ from ftplib import FTP
 
 def upload_files():
     files = glob.glob("website/data/*.json")
+
+    files += ["website/data/overview.js"]
+
     if not files:
         print("No files found")
         return
