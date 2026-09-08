@@ -1,8 +1,8 @@
 import xarray as xr
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import geopandas as gpd
+import json
+#import geopandas as gpd
 
 def preprocess():
 
@@ -42,8 +42,12 @@ def preprocess():
     last_year = years[-1]
     last_season = seasons[-1]
 
-    print(f"Last month: {last_month}, Last year: {last_year}, Last season: {last_season}")
-
+    last_season_text = {
+        "DJF": "Inverno",
+        "MAM": "Primavera",
+        "JJA": "Estate",
+        "SON": "Autunno"
+    }[last_season]
 
     temp_mean = []
     for y in sorted(np.unique(years_season)):
@@ -55,27 +59,66 @@ def preprocess():
 
     rank = len(np.unique(years_season)) - np.argmin(np.abs(temp_rank - temp_mean_last), axis=0)
 
-    print(f"Rank shape: {rank.shape}")
+    rank_min = int(np.min(rank))
 
-    world = gpd.read_file("./geo/geoBoundaries-ITA-ADM0.shp")
+    rank = rank.astype(float) - 0.5
 
-    #print(world.head())
+    lons = [float(x) for x in lons]
+    lats = [float(x) for x in lats]
+    rank = [[float(y) for y in x] for x in rank]
 
-    # Plot the single country boundary
-    # temp_max = np.max(temp[idx, :, :], axis=0)
-    fig, ax = plt.subplots(figsize=(7, 6))
-    #ax.tripcolor(X.flatten(), Y.flatten(), diff.flatten(), cmap="RdYlBu_r", vmin=-val, vmax=val)
-    #p = ax.pcolor(lons, lats, rank, cmap="tab10", vmin=1, vmax=10)
-    p = ax.contourf(lons, lats, rank, levels=np.arange(1, 6) - 0.5, cmap="RdYlBu")
-    #plt.colorbar()
-    world.plot(ax=ax, facecolor="none", edgecolor="k", linewidth=1)
-    cbar = plt.colorbar(p, ax=ax)
-    cbar.set_ticks([1, 2, 3, 4])
-    cbar.set_ticklabels(["Primo", "Secondo", "Terzo", "Quarto"])
-    cbar.ax.invert_yaxis()
-    plt.axis("off")
-    plt.tight_layout()
-    plt.show()
+
+    # save to json
+    data = [{
+             "x": lons,
+             "y": lats,
+             "z": rank,
+             "type": "contour",
+             "colorscale": "RdBu",
+             "reversescale": True,
+             "colorbar":{
+                "tickvals": [i - 0.5 for i in range(rank_min, rank_min + 6)],
+                "ticktext": [str(i) for i in range(rank_min, rank_min + 6)]
+             },
+               "contours": {
+                "start": rank_min,
+                "end": rank_min + 4,
+                "size": 1
+            }
+             }]
+
+    layout = {
+          "width": 600,
+          "height": 600,
+        "title": {"text": f"Classifica della temperatura media {last_season_text.lower()} {last_year}"},
+             }
+
+    # first layout so it is easier to debug in the json file
+    bundle = {"layout": layout, "data": data}
+
+    with open("website/data/era5_seasonal_rank.json", "w") as f:
+        json.dump(bundle, f, indent=4)
+
+
+    # world = gpd.read_file("./geo/geoBoundaries-ITA-ADM0.shp")
+
+    # #print(world.head())
+
+    # # Plot the single country boundary
+    # # temp_max = np.max(temp[idx, :, :], axis=0)
+    # fig, ax = plt.subplots(figsize=(7, 6))
+    # #ax.tripcolor(X.flatten(), Y.flatten(), diff.flatten(), cmap="RdYlBu_r", vmin=-val, vmax=val)
+    # #p = ax.pcolor(lons, lats, rank, cmap="tab10", vmin=1, vmax=10)
+    # p = ax.contourf(lons, lats, rank, levels=np.arange(1, 6) - 0.5, cmap="RdYlBu")
+    # #plt.colorbar()
+    # world.plot(ax=ax, facecolor="none", edgecolor="k", linewidth=1)
+    # cbar = plt.colorbar(p, ax=ax)
+    # cbar.set_ticks([1, 2, 3, 4])
+    # cbar.set_ticklabels(["Primo", "Secondo", "Terzo", "Quarto"])
+    # cbar.ax.invert_yaxis()
+    # plt.axis("off")
+    # plt.tight_layout()
+    # plt.show()
 
 
 if __name__ == "__main__":

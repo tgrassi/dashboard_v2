@@ -52,7 +52,7 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
-            #era5_monthly_map,
+            era5_monthly_map,
             rank_months,
             seaice_south,
             seaice_north,
