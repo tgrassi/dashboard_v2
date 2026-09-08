@@ -27,7 +27,8 @@ from preprocessors import (ghg_ch4, ghg_co2_mlo, ghg_n2o, ghg_sf6,
                            city_stripes,
                            radiosonde,
                            stripes_factory,
-                           overview_factory
+                           overview_factory,
+                           era5_monthly_map
                            )
 
 # create website data folder if not exists
@@ -51,6 +52,8 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            #era5_monthly_map,
+            rank_months,
             seaice_south,
             seaice_north,
             sea_level,
@@ -67,7 +70,6 @@ preproc = [
             city_summer,
             correlation_temp_sunspots,
             correlation_temp_co2,
-            rank_months,
             med_gaussian,
             temperature_2kyrs,
             co2_800kyr,

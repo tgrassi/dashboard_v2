@@ -60,16 +60,17 @@ def download():
         fname_csv = f"{DATA_FOLDER}/city_openmeteo_{city.lower()}.csv"
 
         df_existing = pd.DataFrame()
+        days_diff = 30
         # if file exists read the data and get the last date
         if os.path.exists(fname_csv):
             df_existing = pd.read_csv(fname_csv)
             last_date = df_existing['date'].max()
             start_date = pd.to_datetime(last_date).strftime("%Y-%m-%d")
+            days_diff = (pd.to_datetime(end_date + " 00:00:00+02:00") - pd.to_datetime(last_date)).days
 
         if start_date == end_date:
             print(f"No new data to download for {city}. Exiting.")
             continue
-
 
         print(f"Downloading Open-Meteo data for {city} from {start_date} to {end_date}...")
 
@@ -84,7 +85,7 @@ def download():
         if not df_existing.empty:
             df = pd.concat([df_existing, df]).drop_duplicates(subset=['date']).reset_index(drop=True)
 
-        time_sleep = 30
+        time_sleep = min(30, days_diff)
         df.to_csv(fname_csv, index=False)
         print(f"Open-Meteo data saved to {fname_csv} (sleep {time_sleep} seconds)")
         time.sleep(time_sleep)  # Sleep to avoid hitting the API too quickly

@@ -65,8 +65,8 @@ def preprocess():
 
     data = [{
              "x": xgrid,
-             "y": ygrid,
-             "z": zgrid,
+             "y": ygrid[::-1],
+             "z": zgrid[::-1],
              "type": "heatmap",
              "colorscale": "RdBu",
              "reversescale": True,
