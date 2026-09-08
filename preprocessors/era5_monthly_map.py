@@ -90,7 +90,7 @@ def preprocess():
     layout = {
           "width": 600,
           "height": 600,
-        "title": {"text": f"Classifica della temperatura media {last_season_text.lower()} {last_year}"},
+        "title": {"text": f"{last_season_text.lower()} {last_year}: come si piazza in classifica?"},
              }
 
     # first layout so it is easier to debug in the json file
