@@ -90,7 +90,7 @@ def preprocess():
     layout = {
           "width": 600,
           "height": 600,
-        "title": {"text": f"{last_season_text.lower()} {last_year}: come si piazza in classifica?"},
+        "title": {"text": f"{last_season_text.title()} {last_year}: come si piazza in classifica negli ultimi {len(np.unique(years_season))} anni?"},
              }
 
     # first layout so it is easier to debug in the json file

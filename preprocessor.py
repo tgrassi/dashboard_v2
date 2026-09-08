@@ -52,6 +52,7 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            global_temperature,
             era5_monthly_map,
             rank_months,
             seaice_south,
@@ -81,7 +82,6 @@ preproc = [
             ghg_n2o,
             ghg_ch4,
             med_ssta_map,
-            global_temperature,
             ocean_heat,
             stripes_factory, # IMPORTANT: this must be the last one because it reads all the json files created by the other preprocessors
             overview_factory # IMPORTANT: same as above

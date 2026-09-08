@@ -20,6 +20,7 @@ def preprocess():
     last_month = "-"
 
     dates = []
+    dates_yearly = []
     temperatures_monthly = []
     temperatures_yearly = []
     for year in years:
@@ -37,11 +38,23 @@ def preprocess():
         annual_mean = df.loc[df["year"] == year, "annual_mean"].values[0]
         if annual_mean != "***":
             temperatures_yearly.append(float(annual_mean))
+            dates_yearly.append(year)
 
     years = [int(x) for x in years]
+    dates_yearly = [int(x) for x in dates_yearly]
 
     val_monthly = np.abs(temperatures_monthly).max()
     val_yearly = np.abs(temperatures_yearly).max()
+
+    xdata_fit = [x for x in dates_yearly if x >= 1970]
+    ydata_fit = [y for x, y in zip(dates_yearly, temperatures_yearly) if x >= 1970]
+
+    # linear fit
+    coeffs = np.polyfit(xdata_fit, ydata_fit, 1)
+
+    temperatures_yearly_fit = np.polyval(coeffs, xdata_fit)
+    temperatures_yearly_fit = [float(x) for x in temperatures_yearly_fit]
+
 
     # save to json
     data_monthly = [{
@@ -79,7 +92,7 @@ def preprocess():
 
     data_yearly = [
             {
-                "x": years,
+                "x": dates_yearly,
                 "y": temperatures_yearly,
                 "type": "scatter",
                 "mode": "lines+markers",
@@ -88,6 +101,18 @@ def preprocess():
                     "colorscale": "RdBu",
                     "cmin": -val_yearly,
                     "cmax": val_yearly
+                },
+                "name": "Anomalia"
+            },
+            {
+                "x": xdata_fit,
+                "y": temperatures_yearly_fit,
+                "type": "scatter",
+                "mode": "lines",
+                "name": "Fit lineare",
+                "line": {
+                    "color": "#0DE4E4",
+                    "width": 2,
                 }
             }
             ]
