@@ -83,6 +83,25 @@
             <script>
               plot("data/radiosonde.json", "radiosonde");
             </script>
+          </header>
+        </section>
+
+
+        <!---------- Temperature maps --------->
+        <section id="temperature_maps" class="dmu-19__section">
+          <header class="dmu-19__head">
+            <h1 class="dmu-19__h1">Mappe di Temperatura</h1>
+
+            <div id="era5_monthly_map"></div>
+            <script>
+              plot("data/era5_monthly_map.json", "era5_monthly_map");
+            </script>
+
+            <div id="era5_seasonal_map"></div>
+            <script>
+              plot("data/era5_seasonal_map.json", "era5_seasonal_map");
+            </script>
+
 
             <div id="era5_seasonal_rank"></div>
             <script>

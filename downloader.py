@@ -22,8 +22,8 @@ if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
 
 modules = [
-        #era5_monthly_map,
-        #radiosonde,
+        era5_monthly_map,
+        radiosonde,
         ocean_acidity,
         city_openmeteo,
         glaciers_mass,

@@ -98,28 +98,3 @@ def preprocess():
 
     with open("website/data/era5_seasonal_rank.json", "w") as f:
         json.dump(bundle, f, indent=4)
-
-
-    # world = gpd.read_file("./geo/geoBoundaries-ITA-ADM0.shp")
-
-    # #print(world.head())
-
-    # # Plot the single country boundary
-    # # temp_max = np.max(temp[idx, :, :], axis=0)
-    # fig, ax = plt.subplots(figsize=(7, 6))
-    # #ax.tripcolor(X.flatten(), Y.flatten(), diff.flatten(), cmap="RdYlBu_r", vmin=-val, vmax=val)
-    # #p = ax.pcolor(lons, lats, rank, cmap="tab10", vmin=1, vmax=10)
-    # p = ax.contourf(lons, lats, rank, levels=np.arange(1, 6) - 0.5, cmap="RdYlBu")
-    # #plt.colorbar()
-    # world.plot(ax=ax, facecolor="none", edgecolor="k", linewidth=1)
-    # cbar = plt.colorbar(p, ax=ax)
-    # cbar.set_ticks([1, 2, 3, 4])
-    # cbar.set_ticklabels(["Primo", "Secondo", "Terzo", "Quarto"])
-    # cbar.ax.invert_yaxis()
-    # plt.axis("off")
-    # plt.tight_layout()
-    # plt.show()
-
-
-if __name__ == "__main__":
-    preprocess()
