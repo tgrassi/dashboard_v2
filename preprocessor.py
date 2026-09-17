@@ -52,6 +52,7 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            city_gauss_max,
             era5_season_map,
             era5_month_map,
             era5_season_rank,
@@ -76,7 +77,6 @@ preproc = [
             med_gaussian,
             temperature_2kyrs,
             co2_800kyr,
-            city_gauss_max,
             city_tmin_days,
             city_tmax_days,
             glaciers_mass,

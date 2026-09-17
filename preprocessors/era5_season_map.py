@@ -1,3 +1,4 @@
+from preprocessors.overview_factory import save_overview
 import xarray as xr
 import pandas as pd
 import numpy as np
@@ -62,6 +63,8 @@ def preprocess():
 
     anomaly = temp_mean_last - temp_mean
 
+    average_anomaly = np.nanmean(anomaly)
+
     # nan to zeros
     anomaly = np.nan_to_num(anomaly, nan=0.0)
 
@@ -93,3 +96,7 @@ def preprocess():
 
     with open("website/data/era5_seasonal_map.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+
+    # save overview data for overview factory
+    save_overview("season", f"Anomalia temperatura media {last_season_text}", f"{average_anomaly:+.1f}°C", int(last_year))

@@ -44,8 +44,13 @@ def preprocess():
         xmin = min(avg.min(), last_tmax) - 1
         xmax = max(avg.max(), last_tmax) + 1
 
+        def gaussian(x, mean, std):
+            return np.exp(-0.5 * ((x - mean)/std)**2) / (std * np.sqrt(2 * np.pi))
+
         xx = np.linspace(xmin, xmax, 100)
-        yy = np.exp(-0.5 * ((xx - mean)/std)**2) / (std * np.sqrt(2 * np.pi))
+        yy = gaussian(xx, mean, std)
+
+        ymax = max(yy)
 
         xx = [float(x) for x in xx]
         yy = [float(x) for x in yy]
@@ -55,6 +60,7 @@ def preprocess():
         else:
             visible = "legendonly"
 
+        # this is the gaussian
         data.append({
                 "x": xx,
                 "y": yy,
@@ -68,15 +74,54 @@ def preprocess():
                 })
 
 
+        percentiles = [np.percentile(avg, p) for p in [1, 5, 25, 75, 95, 99]]
+        percentiles = [xmin] + percentiles + [xmax]
+
+        purple = "#800080"
+        red = "#a33f3f"
+        orange = "#b96c1f"
+        green = "#249124"
+        colors = [purple, red, orange, green, orange, red, purple]
+
+        for j in range(1, len(percentiles)):
+
+            xpmin = percentiles[j - 1]
+            xpmax = percentiles[j]
+
+            xx = np.linspace(xpmin, xpmax, 100)
+            yy = gaussian(xx, mean, std)
+
+            xx = [float(x) for x in xx]
+            yy = [float(x) for x in yy]
+
+            data.append({
+                "x": xx,
+                "y": yy,
+                "fill": 'tozeroy',
+                "type": "line",
+                "mode": "lines",
+                "line": {
+                    "color": colors[j - 1],
+                    "dash": "dot",
+                    "width": 0,
+                    "opacity": 0.1,
+                },
+                "visible": visible,
+                "legendgroup": f"city_{city}",
+                "showlegend": False,
+                })
+
+
+        # this is the vertical line
         last_date_text = last_day.strftime("%d/%m/%Y")
         data.append({
                 "x": [last_tmax, last_tmax],
-                "y": [0, max(yy)],
+                "y": [0, ymax],
                 "type": "line",
                 "mode": "lines",
                 "name": f"{last_date_text} {city.title()}",
                 "line": {
-                    "color": PLOTLY_COLOR_SEQUENCE[i % len(PLOTLY_COLOR_SEQUENCE)],
+                    "color": "white",
                     "dash": "dash",
                     "width": 4,
                 },
