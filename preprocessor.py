@@ -9,8 +9,7 @@ from preprocessors import (era5_season_map, era5_season_rank, ghg_ch4, ghg_co2_m
                            enso,
                            era5_daily_anomaly,
                            era5_ocean_anomaly,
-                           seaice_north,
-                           seaice_south,
+                           seaice_ns,
                            glaciers_mass,
                            sea_level,
                            city_tmax_days,
@@ -52,14 +51,13 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            seaice_ns,
             city_gauss_max,
             era5_season_map,
             era5_month_map,
             era5_season_rank,
             global_temperature,
             rank_months,
-            seaice_south,
-            seaice_north,
             sea_level,
             enso,
             era5_ocean_anomaly,

@@ -33,7 +33,7 @@ def preprocess():
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(years, ph, "pH", "ocean_acidity.json", symmetric_minmax=False, cmap="YlGnBu")
+    save_stripes(years, ph, "Acidità Oceani (pH)", "ocean_acidity.json", symmetric_minmax=False, cmap="YlGnBu")
 
     # save overview data for overview factory
     save_overview("ocean_acidity", f"Acidità Oceani (pH, {years[-1]})", f"{ph[-1]:.3f}", years[-1])
