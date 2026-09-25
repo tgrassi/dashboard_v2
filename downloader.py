@@ -14,6 +14,7 @@ from downloaders import (ghg_mlo,
                          ocean_acidity,
                          radiosonde,
                          era5_monthly_map,
+                         enso_daily,
                          )
 from downloaders.commons import DATA_FOLDER
 
@@ -22,6 +23,7 @@ if not os.path.exists(DATA_FOLDER):
     os.makedirs(DATA_FOLDER)
 
 modules = [
+        enso_daily,
         era5_monthly_map,
         radiosonde,
         ocean_acidity,
