@@ -60,7 +60,7 @@ def preprocess():
                     }]
                 },
                 "yaxis": {"title": {"text": "Temperatura oceano (°C)"}},
-                "title": {"text": "Qual è l'anomalia giornaliera El Niño 3.4?"},
+                "title": {"text": "Qual è la temperatura giornaliera El Niño 3.4?"},
                 }
 
     bundled_data = {
