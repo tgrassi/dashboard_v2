@@ -59,8 +59,8 @@ def preprocess():
                     "value": '%b'
                     }]
                 },
-                "yaxis": {"title": {"text": "Anomalia di temperatura (°C)"}},
-                "title": {"text": "Qual è l'anomalia giornaliera El Niño 3+4?"},
+                "yaxis": {"title": {"text": "Temperatura oceano (°C)"}},
+                "title": {"text": "Qual è l'anomalia giornaliera El Niño 3.4?"},
                 }
 
     bundled_data = {
