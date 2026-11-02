@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import json
 from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, MONTHS_NAME
+import kaleido #required
+import plotly.io as pio
 
 def preprocess():
     cities = sorted([city.split('_')[-1].replace('.csv', '') for city in glob("data/city_openmeteo_*.csv")])

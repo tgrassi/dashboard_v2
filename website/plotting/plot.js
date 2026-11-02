@@ -5,6 +5,10 @@
 // the theme is a global variable defined in website/plotting/plotly_theme.js
 function plot(data_json, id, style=null, use_button_text=true){
 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const squared = urlParams.get('squared');
+
     // create a div child of the div with id=id
     var parent = document.getElementById(id);
     var child_plot = document.createElement("div");
@@ -25,7 +29,11 @@ function plot(data_json, id, style=null, use_button_text=true){
     if (style != null){
         child_plot.setAttribute("style", style);
     }else{
-        child_plot.setAttribute("style", "width: 800px; height: 600;");
+        if (squared == "true" || squared == "1"){
+            child_plot.setAttribute("style", "width: 800px; height: 800px;");
+        }else{
+            child_plot.setAttribute("style", "width: 800px; height: 600;");
+        }
     }
 
     fetch(data_json)
