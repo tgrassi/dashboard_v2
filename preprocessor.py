@@ -28,7 +28,8 @@ from preprocessors import (era5_season_map, era5_season_rank, ghg_ch4, ghg_co2_m
                            era5_month_map,
                            stripes_factory,
                            overview_factory,
-                           enso_daily
+                           enso_daily,
+                           radiosonde_stats,
                            )
 
 # create website data folder if not exists
@@ -52,6 +53,7 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            radiosonde_stats,
             enso_daily,
             seaice_ns,
             city_gauss_max,

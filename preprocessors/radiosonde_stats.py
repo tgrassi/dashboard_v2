@@ -1,0 +1,127 @@
+import json
+
+import numpy as np
+from tqdm import tqdm
+from preprocessors.overview_factory import save_overview
+
+def preprocess():
+
+    fname = "data/radiosonde.txt"
+
+    yearmin = 1981
+    yearmax = yearmin + 30
+
+    rows = [x for x in open(fname, "r")]
+
+    dates = []
+    freezing_heights = []
+
+    months = {i: [] for i in range(1, 13)}
+    current_year = np.datetime64("today").astype(object).year
+
+    for row in tqdm(rows):
+        srow = row.strip()
+        if srow == "":
+            continue
+        if srow.startswith("#"):
+            date = srow[13:23].replace(" ", "-")
+            year = int(srow[13:17])
+            month = int(srow[17:20])
+            hour = int(srow[24:27])
+            npoints = int(srow[31:36])
+            height = []
+            temperature = []
+            continue
+
+        if hour not in [10, 11, 12, 13]:
+            continue
+
+        arow = srow.split()
+        height.append(float(arow[2]))
+        temperature.append(float(arow[3]) / 10.0 - 273.15)  # convert to Celsius
+
+        if len(height) == npoints:
+            imin = None
+            for i in range(npoints - 2, -1, -1):
+                if temperature[i] * temperature[i + 1] < 0.0:
+                    imin = i
+                    break
+            if imin is None:
+                #print(f"{date} No inversion found")
+                continue
+            h0 = height[imin]
+            h1 = height[imin + 1]
+            t0 = temperature[imin]
+            t1 = temperature[imin + 1]
+            h0 = h0 + (0.0 - t0) * (h1 - h0) / (t1 - t0)
+            if year == current_year:
+                dates.append(date)
+                freezing_heights.append(h0)
+            if yearmin <= year <= yearmax:
+                months[month].append(h0)
+
+
+    average = {k: np.mean(v) for k, v in months.items() if len(v) > 0}
+
+    dates = [np.datetime64(x) for x in dates]
+
+    anomalies = []
+    for date, height in zip(dates, freezing_heights):
+        month = date.astype(object).month
+        avg = average[month]
+        anomalies.append(height - avg)
+
+    dates = [str(x) for x in dates]
+    anomalies = [float(x) for x in anomalies]
+    heights = [float(x) for x in freezing_heights]
+
+    # fit anomalies distribution with gaussian
+    mu, sigma = np.mean(anomalies), np.std(anomalies)
+    xdata = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
+    ydata = 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (xdata - mu) ** 2 / (2 * sigma ** 2))
+
+
+    hist = np.histogram(anomalies, bins=50, density=True)
+
+
+    xdata = [float(x) for x in xdata]
+    ydata = [float(x) for x in ydata]
+
+    xhist = [float(x) for x in hist[1][:-1]]
+    yhist = [float(x) for x in hist[0]]
+    val = np.abs(anomalies).max()
+
+    # save to json
+    data = [{
+             "x": xdata,
+             "y": ydata,
+             "type": "scatter",
+             "mode": "lines",
+             "name": "Fit gaussiano"
+             },
+             {
+                 "x": xhist,
+                 "y": yhist,
+                 "type": "bar",
+                 "name": "Distribuzione",
+                    "marker": {
+                        "color": [float(x) for x in hist[1][:-1]],
+                        "colorscale": "RdBu",
+                        "cmin": -val,
+                        "cmax": val
+                    },
+             }
+
+             ]
+
+    layout = {
+                "xaxis": {"title": {"text": "Anomalia zero termico (m)"}},
+                "yaxis": {"title": {"text": "Probabilità"}},
+                "title": {"text": f"Distribuzione anomalie quota di congelamento {current_year} (Payerne, Svizzera)"},
+             }
+
+    # first layout so it is easier to debug in the json file
+    bundle = {"layout": layout, "data": data}
+
+    with open("website/data/radiosonde_stats.json", "w") as f:
+        json.dump(bundle, f, indent=4)
