@@ -7,7 +7,8 @@ function plot(data_json, id, style=null, use_button_text=true){
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const squared = urlParams.get('squared');
+    const width = urlParams.get('width');
+    const height = urlParams.get('height');
 
     // create a div child of the div with id=id
     var parent = document.getElementById(id);
@@ -29,8 +30,8 @@ function plot(data_json, id, style=null, use_button_text=true){
     if (style != null){
         child_plot.setAttribute("style", style);
     }else{
-        if (squared == "true" || squared == "1"){
-            child_plot.setAttribute("style", "width: 800px; height: 800px;");
+        if (width != null && height != null){
+            child_plot.setAttribute("style", "width: " + width + "px; height: " + height + "px;");
         }else{
             child_plot.setAttribute("style", "width: 800px; height: 600;");
         }
