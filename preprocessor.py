@@ -53,13 +53,13 @@ for filename in os.listdir('data_overview'):
     os.remove(os.path.join('data_overview', filename))
 
 preproc = [
+            era5_season_map,
+            era5_season_rank,
+            era5_month_map,
             radiosonde_stats,
             enso_daily,
             seaice_ns,
             city_gauss_max,
-            era5_season_map,
-            era5_month_map,
-            era5_season_rank,
             global_temperature,
             rank_months,
             sea_level,

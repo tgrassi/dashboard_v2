@@ -61,7 +61,7 @@ def preprocess():
     layout = {
         "width": 600,
         "height": 600,
-        "title": {"text": f"{month_name} {last_year}: qual è l'anomalia di temperatura ({year_avg_min}-{year_avg_max})?"},
+        "title": {"text": f"{month_name} {last_year}: quale anomalia termica ({year_avg_min}-{year_avg_max})?"},
              }
 
     # first layout so it is easier to debug in the json file

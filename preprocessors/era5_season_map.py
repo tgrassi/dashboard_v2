@@ -30,6 +30,22 @@ def preprocess():
                 return season
         return None
 
+    def get_valid_month(current_month, current_season, months):
+        if current_season == "DJF":
+            if current_month == 12:
+                return months == 12
+            else:
+                return (months <= current_month) | (months == 12)
+        elif current_season == "MAM":
+            return (months >= 3) & (months <= current_month)
+        elif current_season == "JJA":
+            return (months >= 6) & (months <= current_month)
+        elif current_season == "SON":
+            return (months >= 9) & (months <= current_month)
+        else:
+            raise ValueError(f"Invalid season: {current_season}")
+
+
     # get seasons for each month and year
     seasons = np.array([get_season(m) for m in months])
 
@@ -41,6 +57,7 @@ def preprocess():
     # get last month, year, and season
     last_year = years[-1]
     last_season = seasons[-1]
+    last_month = months[-1]
 
     last_season_text = {
         "DJF": "Inverno",
@@ -55,11 +72,11 @@ def preprocess():
     temp_mean = []
     for y in sorted(np.unique(years_season)):
         if year_avg_min <= y <= year_avg_max:
-            temp_mean.append(np.mean(temp[(years_season == y) & (seasons == last_season), :, :], axis=0))
+            temp_mean.append(np.mean(temp[(years_season == y) & (seasons == last_season) & get_valid_month(last_month, last_season, months), :, :], axis=0))
 
     temp_mean = np.mean(temp_mean, axis=0)
 
-    temp_mean_last = np.mean(temp[(years_season == last_year) & (seasons == last_season), :, :], axis=0)
+    temp_mean_last = np.mean(temp[(years_season == last_year) & (seasons == last_season) & get_valid_month(last_month, last_season, months), :, :], axis=0)
 
     anomaly = temp_mean_last - temp_mean
 
@@ -88,7 +105,7 @@ def preprocess():
     layout = {
         "width": 600,
         "height": 600,
-        "title": {"text": f"{last_season_text.title()} {last_year}: qual è l'anomalia di temperatura ({year_avg_min}-{year_avg_max})?"},
+        "title": {"text": f"{last_season_text.title()} {last_year}: quale anomalia termica ({year_avg_min}-{year_avg_max})?"},
              }
 
     # first layout so it is easier to debug in the json file

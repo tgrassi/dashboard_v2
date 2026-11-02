@@ -29,6 +29,26 @@ def preprocess():
                 return season
         return None
 
+    def get_valid_month(current_month, current_season, months, current_day_of_month):
+
+        month_diff = 0
+        if current_day_of_month < 25 and current_month not in [3, 6, 9, 12]:
+            month_diff = 1
+
+        if current_season == "DJF":
+            if current_month == 12:
+                return months == 12
+            else:
+                return (months <= current_month - month_diff) | (months == 12)
+        elif current_season == "MAM":
+            return (months >= 3) & (months <= current_month - month_diff)
+        elif current_season == "JJA":
+            return (months >= 6) & (months <= current_month - month_diff)
+        elif current_season == "SON":
+            return (months >= 9) & (months <= current_month - month_diff)
+        else:
+            raise ValueError(f"Invalid season: {current_season}")
+
     # get seasons for each month and year
     seasons = np.array([get_season(m) for m in months])
 
@@ -42,6 +62,8 @@ def preprocess():
     last_year = years[-1]
     last_season = seasons[-1]
 
+    current_day_of_month = pd.to_datetime(dates[-1]).day
+
     last_season_text = {
         "DJF": "Inverno",
         "MAM": "Primavera",
@@ -51,9 +73,9 @@ def preprocess():
 
     temp_mean = []
     for y in sorted(np.unique(years_season)):
-        temp_mean.append(np.mean(temp[(years_season == y) & (seasons == last_season), :, :], axis=0))
+        temp_mean.append(np.mean(temp[(years_season == y) & (seasons == last_season) & get_valid_month(last_month, last_season, months, current_day_of_month), :, :], axis=0))
 
-    temp_mean_last = np.mean(temp[(years_season == last_year) & (seasons == last_season), :, :], axis=0)
+    temp_mean_last = np.mean(temp[(years_season == last_year) & (seasons == last_season) & get_valid_month(last_month, last_season, months, current_day_of_month), :, :], axis=0)
 
     temp_rank = np.sort(temp_mean, axis=0)
 
@@ -90,7 +112,7 @@ def preprocess():
     layout = {
           "width": 600,
           "height": 600,
-        "title": {"text": f"{last_season_text.title()} {last_year}: come si piazza in classifica negli ultimi {len(np.unique(years_season))} anni?"},
+        "title": {"text": f"{last_season_text.title()} {last_year}: quale posizione in classifica (su {len(np.unique(years_season))} anni)?"},
              }
 
     # first layout so it is easier to debug in the json file
