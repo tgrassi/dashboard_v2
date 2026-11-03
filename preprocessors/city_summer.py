@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import json
 from glob import glob
+from preprocessors.commons import get_info
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
 def preprocess():
@@ -65,7 +66,9 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout,
+              "data": data,
+              "text_content": get_info("city_summer")}
 
     with open("website/data/city_summer.json", "w") as f:
         json.dump(bundle, f, indent=4)

@@ -1,8 +1,8 @@
 import json
-
 import pandas as pd
 import numpy as np
 from scipy.interpolate import interp1d
+from preprocessors.commons import get_info
 
 def preprocess():
     # year,month,decimal date,average,deseasonalized,ndays,sdev,unc
@@ -87,7 +87,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("correlation_temp_co2")}
 
     with open("website/data/correlation_temp_co2.json", "w") as f:
         json.dump(bundle, f, indent=4)

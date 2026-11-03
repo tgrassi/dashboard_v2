@@ -2,6 +2,8 @@ import pandas as pd
 import json
 from preprocessors.overview_factory import save_overview
 from preprocessors.stripes_factory import save_stripes
+from preprocessors.commons import get_info
+
 
 def preprocess():
     df = pd.read_csv("data/ocean_acidity.csv", sep="\s+", skiprows=2, header=None, names=["time", "ph", "ph_uncertainty"])
@@ -27,13 +29,13 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("ocean_acidity")}
 
     with open("website/data/ocean_acidity.json", "w") as f:
         json.dump(bundle, f, indent=4)
 
     # save stripes json for the stripes factory
-    save_stripes(years, ph, "Acidità Oceani (pH)", "ocean_acidity.json", symmetric_minmax=False, cmap="YlGnBu")
+    save_stripes(years, ph, "Acidità Oceani (pH)", "ocean_acidity.json", symmetric_minmax=False, cmap="YlGnBu", reverse_cmap=True)
 
     # save overview data for overview factory
     save_overview("ocean_acidity", f"Acidità Oceani (pH, {years[-1]})", f"{ph[-1]:.3f}", years[-1])

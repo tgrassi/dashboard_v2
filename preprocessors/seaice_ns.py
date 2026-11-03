@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from preprocessors.commons import PLOTLY_COLOR_SEQUENCE
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, get_info
 import numpy as np
 
 def preprocess():
@@ -137,7 +137,8 @@ def preprocess_NS(what):
 
     bundled_data = {
         "layout": layout,
-        "data": data
+        "data": data,
+        "text_content": get_info("seaice_{}".format(what))
     }
 
     what_str = "north" if what == "N" else "south"

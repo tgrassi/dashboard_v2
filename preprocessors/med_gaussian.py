@@ -1,3 +1,4 @@
+from preprocessors.commons import get_info
 from preprocessors.overview_factory import save_overview
 import xarray as xr
 import numpy as np
@@ -74,7 +75,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("med_gaussian")}
 
     with open("website/data/med_gaussian.json", "w") as f:
         json.dump(bundle, f, indent=4)

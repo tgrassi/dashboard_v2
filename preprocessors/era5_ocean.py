@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from preprocessors.commons import get_info
 
 def preprocess():
     """Preprocess the global temperature ocean data."""
@@ -98,7 +99,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("era5_ocean")}
 
     with open("website/data/era5_ocean.json", "w") as f:
         json.dump(bundle, f, indent=4)

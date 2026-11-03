@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 
+from preprocessors.commons import get_info
 from preprocessors.stripes_factory import save_stripes
 
 
@@ -30,7 +31,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "test_content": get_info("glaciers_mass")}
 
     with open("website/data/glaciers_mass.json", "w") as f:
         json.dump(bundle, f, indent=4)

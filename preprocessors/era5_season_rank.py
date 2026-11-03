@@ -2,7 +2,8 @@ import xarray as xr
 import pandas as pd
 import numpy as np
 import json
-#import geopandas as gpd
+from preprocessors.commons import get_info
+
 
 def preprocess():
 
@@ -116,7 +117,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("era5_seasonal_rank"),}
 
     with open("website/data/era5_seasonal_rank.json", "w") as f:
         json.dump(bundle, f, indent=4)

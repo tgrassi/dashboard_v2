@@ -4,7 +4,7 @@ import datetime
 
 from preprocessors.overview_factory import save_overview
 from preprocessors.stripes_factory import save_stripes
-from preprocessors.commons import MONTHS_NAME
+from preprocessors.commons import MONTHS_NAME, get_info
 
 def preprocess():
 
@@ -45,7 +45,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("ocean_heat")}
 
     with open("website/data/ocean_heat.json", "w") as f:
         json.dump(bundle, f, indent=4)

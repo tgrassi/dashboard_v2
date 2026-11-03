@@ -2,6 +2,7 @@ import json
 
 import numpy as np
 from tqdm import tqdm
+from preprocessors.commons import get_info
 from preprocessors.overview_factory import save_overview
 
 def preprocess():
@@ -123,11 +124,11 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("radiosonde_stats")}
 
     with open("website/data/radiosonde.json", "w") as f:
         json.dump(bundle, f, indent=4)
 
-    date_ddmmyyyy = "/".join(dates[-1].split("-")[::-1])
-    # save overview data for overview factory
-    save_overview("radiosonde", f"Anomalia zero termico (m, {date_ddmmyyyy})", f"{anomalies[-1]:+.0f}", dates[-1])
+    # date_ddmmyyyy = "/".join(dates[-1].split("-")[::-1])
+    # # save overview data for overview factory
+    # save_overview("radiosonde", f"Anomalia zero termico (m, {date_ddmmyyyy})", f"{anomalies[-1]:+.0f}", dates[-1])

@@ -3,7 +3,7 @@ from glob import glob
 import pandas as pd
 import numpy as np
 import json
-from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, MONTHS_NAME
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, MONTHS_NAME, get_info
 
 def preprocess():
     cities = sorted([city.split('_')[-1].replace('.csv', '') for city in glob("data/city_openmeteo_*.csv")])
@@ -73,7 +73,9 @@ def preprocess():
                 }
 
         # first layout so it is easier to debug in the json file
-        bundle = {"layout": layout, "data": data}
+        bundle = {"layout": layout,
+                  "data": data,
+                  "text_content": get_info("city_stripes")}
 
         city_encoded = city.replace(" ", "_").lower()
         with open(f"website/data/stripes_city_{city_encoded}.json", "w") as f:

@@ -1,8 +1,10 @@
 import json
-
 import numpy as np
 from tqdm import tqdm
+#from preprocessors.overview_factory import save_overview
+from preprocessors.commons import get_info
 from preprocessors.overview_factory import save_overview
+
 
 def preprocess():
 
@@ -73,16 +75,14 @@ def preprocess():
 
     dates = [str(x) for x in dates]
     anomalies = [float(x) for x in anomalies]
-    heights = [float(x) for x in freezing_heights]
+    #heights = [float(x) for x in freezing_heights]
 
     # fit anomalies distribution with gaussian
     mu, sigma = np.mean(anomalies), np.std(anomalies)
     xdata = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
     ydata = 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (xdata - mu) ** 2 / (2 * sigma ** 2))
 
-
     hist = np.histogram(anomalies, bins=50, density=True)
-
 
     xdata = [float(x) for x in xdata]
     ydata = [float(x) for x in ydata]
@@ -121,7 +121,11 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("radiosonde_stats")}
 
     with open("website/data/radiosonde_stats.json", "w") as f:
         json.dump(bundle, f, indent=4)
+
+    date_ddmmyyyy = "/".join(dates[-1].split("-")[::-1])
+    # save overview data for overview factory
+    save_overview("radiosonde", f"Anomalia zero termico (m, {current_year})", f"{mu:+.0f}", dates[-1])

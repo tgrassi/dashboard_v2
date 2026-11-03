@@ -2,6 +2,7 @@ import pandas as pd
 import json
 import numpy as np
 from preprocessors.stripes_factory import save_stripes
+from preprocessors.commons import get_info
 
 def preprocess():
 
@@ -36,7 +37,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("temperature_2kyrs")}
 
     with open("website/data/temperature_2kyrs.json", "w") as f:
         json.dump(bundle, f, indent=4)

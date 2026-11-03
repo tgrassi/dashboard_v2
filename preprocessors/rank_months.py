@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import json
 
-from preprocessors.commons import MONTHS_NAME_SHORT
+from preprocessors.commons import MONTHS_NAME_SHORT, get_info
 
 def preprocess():
     """Preprocess the global temperature data."""
@@ -82,7 +82,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("rank_months")}
 
     with open("website/data/rank_months.json", "w") as f:
         json.dump(bundle, f, indent=4)

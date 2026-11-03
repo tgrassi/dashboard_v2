@@ -1,6 +1,6 @@
 import pandas as pd
 import json
-from preprocessors.commons import PLOTLY_COLOR_SEQUENCE
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, get_info
 from preprocessors.stripes_factory import save_stripes
 from preprocessors.overview_factory import save_overview
 
@@ -84,7 +84,7 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout, "data": data, "text_content": get_info("ghg_co2_mlo")}
 
     with open("website/data/co2_mlo.json", "w") as f:
         json.dump(bundle, f, indent=4)

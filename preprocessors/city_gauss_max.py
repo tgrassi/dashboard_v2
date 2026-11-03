@@ -3,9 +3,7 @@ from glob import glob
 import pandas as pd
 import numpy as np
 import json
-from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, MONTHS_NAME
-import kaleido #required
-import plotly.io as pio
+from preprocessors.commons import PLOTLY_COLOR_SEQUENCE, MONTHS_NAME, get_info
 
 def preprocess():
     cities = sorted([city.split('_')[-1].replace('.csv', '') for city in glob("data/city_openmeteo_*.csv")])
@@ -140,7 +138,9 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout,
+              "data": data,
+              "text_content": get_info("city_gauss_max")}
 
     with open("website/data/city_gauss_max.json", "w") as f:
         json.dump(bundle, f, indent=4)

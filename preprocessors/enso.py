@@ -1,8 +1,7 @@
 import pandas as pd
 import json
-
 from preprocessors.overview_factory import save_overview
-from preprocessors.commons import MONTHS_NAME
+from preprocessors.commons import MONTHS_NAME, get_info
 
 def preprocess():
     # YR  MON  NINO1+2  ANOM  NINO3  ANOM.1  NINO4  ANOM.2  NINO3.4  ANOM.3
@@ -103,7 +102,9 @@ def preprocess():
              }
 
     # first layout so it is easier to debug in the json file
-    bundle = {"layout": layout, "data": data}
+    bundle = {"layout": layout,
+              "data": data,
+              "text_content": get_info("enso")}
 
     with open("website/data/enso.json", "w") as f:
         json.dump(bundle, f, indent=4)

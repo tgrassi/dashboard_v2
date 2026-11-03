@@ -2,7 +2,7 @@
 import pandas as pd
 import json
 import numpy as np
-from preprocessors.commons import MONTHS_NAME
+from preprocessors.commons import MONTHS_NAME, get_info
 from preprocessors.stripes_factory import save_stripes
 from preprocessors.overview_factory import save_overview
 
@@ -138,10 +138,16 @@ def preprocess():
              }
 
 
-    # first layout so it is easier to debug in the json file
-    bundle_monthly = {"layout": layout_monthly, "data": data_monthly}
+    #text_content = f"Anomalia temperatura globale (media 1951-1980): {temperatures_monthly[-1]:+.1f}°C ({last_month} {dates[-1][:4]})"
 
-    bundle_yearly = {"layout": layout_yearly, "data": data_yearly}
+    # first layout so it is easier to debug in the json file
+    bundle_monthly = {"layout": layout_monthly,
+                      "data": data_monthly,
+                      "text_content": get_info("global_temperature_monthly")}
+
+    bundle_yearly = {"layout": layout_yearly,
+                     "data": data_yearly,
+                     "text_content": get_info("global_temperature_yearly")}
 
     with open("website/data/global_temperature_monthly.json", "w") as f:
         json.dump(bundle_monthly, f, indent=4)

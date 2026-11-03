@@ -24,7 +24,14 @@ def get_info(filename):
     filename = os.path.join("info", filename)
 
     if not os.path.exists(filename):
-        return "Nessuna informazione disponibile."
+        # create empty file with a message
+        with open(filename, 'w') as f:
+            f.write("")
+        return f"Nessuna informazione disponibile (file {filename} non trovato)."
+
+    # check if file is empty
+    if os.stat(filename).st_size == 0:
+        return f"Nessuna informazione disponibile (file {filename} vuoto)."
 
     with open(filename, 'r') as f:
         lines = f.readlines()

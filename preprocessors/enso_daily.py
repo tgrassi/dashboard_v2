@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+from preprocessors.commons import get_info
 
 
 def preprocess():
@@ -65,7 +66,8 @@ def preprocess():
 
     bundled_data = {
         "layout": layout,
-        "data": data
+        "data": data,
+        "text_content": get_info("enso_daily")
     }
 
     with open('website/data/enso_daily.json', 'w') as f:
